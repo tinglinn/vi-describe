@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
+import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet, Image, ScrollView, Pressable } from 'react-native';
 import Themes from '../assets/themes';
 import { supabase } from '../supabase_client';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 
 export default function ImageScreen ({ navigation })  {
     const [showDetails, setShowDetails] = useState(false);
@@ -13,6 +15,7 @@ export default function ImageScreen ({ navigation })  {
     };
 
     const handleSubmitComment = () => {
+        // this is def not correct, should handle submitting comment logic here
         setComments([...comments, comment]);
         setComment('');
     };
@@ -27,6 +30,16 @@ export default function ImageScreen ({ navigation })  {
             )
     };
 
+    function BackButton() {
+        return (
+            <Pressable style={{marginTop: 5, marginBottom: 15, marginRight: 300}} onPress={() => setShowDetails(false)}>
+                <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+                    <MaterialCommunityIcons name="arrow-left" color={Themes.colors.blue} size={20} />
+                    <Text style={{ color: Themes.colors.blue, fontFamily: 'Poppins', fontSize: 15 }}>Back</Text>
+                </View>
+            </Pressable>
+        );
+    }
     // const getLatestImage = async () => {
     //     const {data, error} = await supabase
     //     .from(IMAGE_INFO)
@@ -42,26 +55,34 @@ export default function ImageScreen ({ navigation })  {
             </TouchableOpacity>
     } else {
         Screen =
-            <View style={styles.detailsContainer}>
-                <Image style={styles.image} source={require('../assets/images/login_logo.png')} />
-                <Text style={styles.prompt}>Enter your description:</Text>
-                <TextInput
-                    style={styles.input}
-                    value={comment}
-                    onChangeText={setComment}
-                    placeholder="Type your description here"
-                />
-                <TouchableOpacity style={styles.button} onPress={handleSubmitComment}>
-                    <Text style={styles.buttonText}>Submit</Text>
-                </TouchableOpacity>
-                <ScrollView style={styles.commentsContainer}>
+            <ScrollView contentContainerStyle={styles.detailsContainer}>
+                <BackButton/>
+                <View style={styles.imageCard}>
+                    <Image style={styles.image} source={require('../assets/images/login_logo.png')} />
+                    <View style={styles.promptBox}><Text style={styles.prompt}>Prompt goes here: here it is here it is here it is here it is</Text></View>
+                </View>
+                <View style={styles.commentsContainer}>
+                    <Text style={styles.prompt}>Enter your description:</Text>
+                    <TextInput
+                        style={styles.input}
+                        value={comment}
+                        onChangeText={setComment}
+                        placeholder="Type your description here"
+                    />
+                    <TouchableOpacity style={styles.button} onPress={handleSubmitComment}>
+                        <Text style={styles.buttonText}>Submit</Text>
+                    </TouchableOpacity>
+                </View>
+                
+                <View style={styles.commentsContainer}>
+                    <Text style={styles.prompt}>Existing Comments</Text>
                     {comments.map((comment, index) => (
                         <Text key={index} style={styles.comment}>
                             {comment}
                         </Text>
                     ))}
-                </ScrollView>
-            </View>
+                </View>
+            </ScrollView>
     }
     return (
         <View style={styles.container}>
@@ -122,7 +143,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     promptBox: {
-        padding: 5,
         alignItems: 'flex-start',
         justifyContent: 'center',
         width: '100%',
@@ -135,15 +155,17 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     input: {
-        width: '80%',
+        width: '100%',
         height: 40,
         borderWidth: 1,
         borderColor: 'gray',
         borderRadius: 5,
         paddingLeft: 10,
+        marginTop: 5,
         marginBottom: 10,
     },
     button: {
+        width: 70,
         backgroundColor: '#2196F3',
         padding: 10,
         borderRadius: 5,
@@ -154,13 +176,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     commentsContainer: {
-        width: '80%',
-        height: 100,
-        borderWidth: 1,
-        borderColor: 'gray',
+        width: 360,
+        backgroundColor: Themes.colors.white,
         borderRadius: 5,
         padding: 10,
-        marginBottom: 10,
+        marginTop: 10,
     },
     comment: {
         fontSize: 14,
