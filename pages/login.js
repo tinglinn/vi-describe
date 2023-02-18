@@ -2,14 +2,22 @@
 
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { supabase } from '../supabase_client';
+
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [userType, setUserType] = useState('');
 
-    const handleLogin = () => {
+    const handleLogin = async (email, password, userType) => {
         // Handle login logic here
+        const { data, error } = await supabase 
+        .from('USERS_LIST')
+        .insert([
+            {username: email, user_id: 1, password: password, usertype: userType},
+        ]);
+        console.log(data, error)
         console.log(`Email: ${email}, Password: ${password}, User Type: ${userType}`);
     };
 
