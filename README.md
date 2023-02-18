@@ -2,13 +2,16 @@
 TreeHacks 2023
 
 
-
+TODO:
+change storing password in USERS_LIST table: store the hash of the password along with a randomly generated key. 
 
 
 SUPABASE:
 SQL TABLES:
 
-
+USERS_LIST: [username: text, user_id: int8, password: text, usertype: text]
+IMAGE_INFO: [image_id: int8, created_at: timestampz, png: text, comment_ids: text, resolved: bool, prompt: text]
+COMMENTS: []
 
 BUCKETS:
 
