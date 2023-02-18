@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet } from 'react-native';
 import { supabase } from '../supabase_client'
 
+var userAlreadyCreated = null;
 const LoginType = ({ navigation }) => {
     const handleLogin = (userType) => {
         navigation.navigate('Login', { userType });
@@ -24,24 +25,38 @@ const LoginType = ({ navigation }) => {
 const Login = ({ navigation, route }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [emailUsed, setEmailUsed] = useState(false)
     const { userType } = route.params;
-
+    
     const handleLogin = async () => {
         // Handle login logic here
+
         const { data, error } = await supabase
-        .from('USER_LIST')
-        .insert(
-            {username: email, password: password, usertype: userType, user_id: 1}
-        )
+        .from('USERS_LIST')
+        .select()
+        .eq("username", email)
 
-        console.log(`Email: ${email}, Password: ${password}, User Type: ${userType}`);
-        navigation.navigate("Main", { userType });
+
+        if (data != null) {
+            setEmailUsed(true);
+        }
+        else {
+            const { data, error } = await supabase
+            .from('USERS_LIST')
+            .insert(
+                {username: email, password: password, usertype: userType, user_id: 1}
+            )
+            console.log(`Email: ${email}, Password: ${password}, User Type: ${userType}`);
+            navigation.navigate("Main", { userType });
+
+        }
     };
-
+    var emailUsedAlert = emailUsed ? <Text style={styles.userAlreadyCreatedText}> Email already in use!</Text> : null;
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Login ({userType})</Text>
             <Text style={styles.label}>Email</Text>
+            {emailUsedAlert}
             <TextInput
                 style={styles.input}
                 value={email}
@@ -49,6 +64,7 @@ const Login = ({ navigation, route }) => {
                 placeholder="Enter email"
                 keyboardType="email-address"
             />
+            
             <Text style={styles.label}>Password</Text>
             <TextInput
                 style={styles.input}
@@ -104,6 +120,10 @@ const styles = StyleSheet.create({
     buttonText: {
         color: '#ffffff',
         fontSize: 18,
+    },
+    userAlreadyCreatedText: {
+        color: 'red',
+        fontSize: 9,
     },
 });
 
