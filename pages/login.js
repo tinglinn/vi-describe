@@ -10,9 +10,8 @@ const Login = () => {
     const [passphrase, setPassphrase] = useState('');
     const [userType, setUserType] = useState('');
 
-    const handleLogin = async (email, passphrase, userType) => {
+    const handleLogin = async () => {
         // Handle login logic here
-        console.log("sex achieved")
         const { data, error } = await supabase 
         .from('USERS_LIST')
         .insert(
