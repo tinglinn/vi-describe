@@ -1,42 +1,30 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList, Dimensions, Button } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { StatusBar } from 'expo-status-bar';
-import { createBottomTabNavigator, BottomTabBar, BottomTabView } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
-import { useFonts } from 'expo-font';
+import { createStackNavigator } from '@react-navigation/stack';
 
 /* import screens */
-import SwipeScreen from './pages/swipe';
-import UploadScreen from './pages/upload';
-import GalleryScreen from './pages/gallery';
-import NotifsScreen from './pages/notifs';
-import ProfileScreen from './pages/profile';
-import LoginScreen from './pages/login';
+import MainScreen from './pages/main';
+import { LoginType, Login } from './pages/login';
 
-/* set up function to toggle between swipe and upload, depending on which kind of user
-     <Tab.Screen name="Main" component={SwipeScreen} />
-      <Tab.Screen name="Gallery" component={GalleryScreen} />
-      <Tab.Screen name="Notifs" component={NotifsScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />*/
+const Stack = createStackNavigator();
 
-const Tab = createBottomTabNavigator();
-
-function BottomTabs() {
+function LoginStacks() {
   return (
-    <Tab.Navigator initialRouteName="Login">
-      <Tab.Screen name="Login" component={LoginScreen} />
- 
-    </Tab.Navigator>
-  );
+    <Stack.Navigator screenOptions={{ headerShown: false }} >
+      <Stack.Screen name="LoginType" component={LoginType} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Main" component={MainScreen} />
+    </Stack.Navigator>
+  )
 }
 
 export default function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <BottomTabs />
+        <LoginStacks/>
       </NavigationContainer>
     </SafeAreaProvider>
   );
