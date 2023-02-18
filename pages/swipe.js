@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
+import Themes from '../assets/themes';
 import { supabase } from '../supabase_client';
 
 export default function ImageScreen ({ navigation })  {
@@ -166,15 +167,3 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
 });
-    
-
-    return (
-        <View style={styles.container}>
-            <Button title="press the button" onPress={insertImageData} />
-        </View>
-    );
-}
-//code to get an image
-
-
-//export default ImageCard;
