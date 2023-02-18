@@ -12,9 +12,14 @@ const colors = {
 const fonts = {
 }
 
+const Profiles = {
+    vangogh: require('../images/vangogh.png'),
+}
+
 const Themes = {
     colors,
     fonts,
+    Profiles,
 };
 
 export default Themes;

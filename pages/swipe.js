@@ -3,6 +3,7 @@ import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet, Image, Scr
 import Themes from '../assets/themes';
 import { supabase } from '../supabase_client';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Swipecards from '../components/swipecards';
 //import SwipeCards from 'react-native-cards-swipe';
 
 export default function Card ({ navigation })  {
@@ -59,7 +60,8 @@ export default function Card ({ navigation })  {
     if (!showDetails) {
         Screen =
             <TouchableOpacity onPress={handleImagePress} style={styles.imageCard}>
-                <Image style={styles.image} source={require('../assets/images/login_logo.png')} />
+                <Swipecards />
+                {/* // <Image style={styles.image} source={require('../assets/images/login_logo.png')} /> */}
                 <View style={styles.promptBox}><Text style={styles.prompt}>Prompt goes here: here it is here it is here it is here it is</Text></View>
             </TouchableOpacity>
     } else {

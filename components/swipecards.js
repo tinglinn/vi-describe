@@ -5,7 +5,7 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, ImageBackground, Dimensions } from 'react-native';
-import { Themes } from '../assets/Themes';
+import Themes from '../assets/themes';
 
 import SwipeCards from 'react-native-swipe-cards';
 
@@ -17,8 +17,8 @@ class Card extends React.Component {
     render() {
         return (
             <ImageBackground
-                source={Profiles.mtl.image}
-                style={[Themes.dark.shadows, styles.card]}
+                source={Themes.Profiles.vangogh}
+                style={[styles.card]}
                 imageStyle={styles.image}
             >
                 <View style={styles.image_box_top}>
@@ -52,7 +52,7 @@ export default class extends React.Component {
         super(props);
         this.state = {
             cards: [
-                { text: 'Tomato', image: Profiles.mtl.image },
+                { text: 'Tomato', image: Themes.Profiles.vangogh },
                 { text: 'Aubergine', backgroundColor: 'purple' },
                 { text: 'Courgette', backgroundColor: 'green' },
                 { text: 'Blueberry', backgroundColor: 'blue' },
