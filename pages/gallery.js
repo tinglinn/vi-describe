@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Image, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
+import Themes from '../assets/themes';
 
 const { width } = Dimensions.get('window');
 const imageWidth = width / 2;
@@ -84,6 +84,7 @@ export default class App extends Component {
 const styles = StyleSheet.create({
  container: {
    flex: 1,
+   backgroundColor: Themes.colors.black,
  },
  scrollContainer: {
    flexGrow: 1,
