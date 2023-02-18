@@ -6,6 +6,7 @@ import { createBottomTabNavigator, BottomTabBar, BottomTabView } from '@react-na
 import { NavigationContainer } from '@react-navigation/native';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { useFonts } from 'expo-font';
+import Themes from '../assets/themes/index';
 
 /* import screens */
 import SwipeScreen from './swipe';
@@ -14,18 +15,26 @@ import GalleryScreen from './gallery';
 import NotifsScreen from './notifs';
 import ProfileScreen from './profile';
 
-/* set up function to toggle between swipe and upload, depending on which kind of user 
-<Tab.Screen name="Swipe" component={SwipeScreen} />
-            <Tab.Screen name="Gallery" component={GalleryScreen} />
-            <Tab.Screen name="Notifs" component={NotifsScreen} />
-            <Tab.Screen name="Profile" component={ProfileScreen} />*/
+/* set up function to toggle between swipe and upload, depending on which kind of user */
 
 const Tab = createBottomTabNavigator();
 
-export default function BottomTabs({navigation, route}) {
+export default function BottomTabs({ navigation, route }) {
+    const { userType } = route.params;
+    var HomeScreen = (userType == "ni") ? SwipeScreen : UploadScreen; // toggle based on user type
+    
     return (
-        <Tab.Navigator >
-            <Tab.Screen name="Swipe" component={SwipeScreen} />
+        <Tab.Navigator
+            initialRouteName="Home"
+            inactiveColor={Themes.colors.darkgray}
+            screenOptions={{
+                tabBarActiveTintColor: Themes.colors.verydark,
+                headerShown: false,
+                tabBarStyle: { padding: 8, height: 85 },
+                tabBarLabelStyle: { fontSize: 12, fontFamily: 'Poppins'}
+            }}  
+        >
+            <Tab.Screen name="Home" component={SwipeScreen} />
             <Tab.Screen name="Gallery" component={GalleryScreen} />
             <Tab.Screen name="Notifs" component={NotifsScreen} />
             <Tab.Screen name="Profile" component={ProfileScreen} />

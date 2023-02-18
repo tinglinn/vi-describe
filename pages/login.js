@@ -1,8 +1,8 @@
-// HAS NOT BEEN STYLED
-
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
 import { supabase } from '../supabase_client'
+import Themes from '../assets/themes';
+
 
 const LoginType = ({ navigation }) => {
     const handleLogin = (userType) => {
@@ -11,15 +11,19 @@ const LoginType = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
+            <ImageBackground source={require('../assets/images/login_logo.png')} resizeMode="cover" style={styles.loginImage} />
             <TouchableOpacity style={[styles.button, styles.buttonA]} onPress={() => handleLogin('A')}>
-                <Text style={styles.buttonText}>Type A</Text>
+                <Text style={styles.buttonText}>I need visual assistance</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.button, styles.buttonB]} onPress={() => handleLogin('B')}>
-                <Text style={styles.buttonText}>Type B</Text>
+                <Text style={styles.buttonText}>I'd like to volunteer</Text>
             </TouchableOpacity>
         </View>
     );
 };
+
+// <Text style={styles.subText}>Provide descriptions of art</Text>
+// <Text style={styles.subText}>Upload an artwork you'd like described</Text>
 
 const Login = ({ navigation, route }) => {
     const [email, setEmail] = useState('');
@@ -53,7 +57,7 @@ const Login = ({ navigation, route }) => {
     var emailUsedAlert = emailUsed ? <Text style={styles.userAlreadyCreatedText}> Email already in use!</Text> : null;
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Login ({userType})</Text>
+            <Text style={styles.title}>Login</Text>
             <Text style={styles.label}>Email</Text>
             {emailUsedAlert}
             <TextInput
@@ -72,7 +76,7 @@ const Login = ({ navigation, route }) => {
                 placeholder="Enter password"
                 secureTextEntry
             />
-            <Button title="Login" onPress={handleLogin} />
+            <Button title="Login" style={styles.button} onPress={handleLogin}  />
         </View>
     );
 };
@@ -83,12 +87,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         paddingHorizontal: 20,
+        backgroundColor: '#4c80fe'
     },
     title: {
+        fontFamily: "Poppins",
         fontSize: 24,
         marginBottom: 20,
     },
     label: {
+        fontFamily: "Poppins",
         fontSize: 16,
         marginTop: 20,
         alignSelf: 'flex-start',
@@ -101,24 +108,48 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 10,
         marginBottom: 20,
+        backgroundColor: 'whitesmoke'
+    },
+    loginImage: {
+        width: '100%',
+        height: '70%'
+    },
+    appName: {
+        fontFamily: 'Poppins-SemiBold',
+        fontSize: 24,
+        color: Themes.colors.white
+    },
+    slogan: {
+        fontFamily: 'Poppins-SemiBold',
+        fontSize: 24,
+        color: Themes.colors.white
     },
     button: {
-        width: '100%',
-        height: 50,
-        borderRadius: 5,
+        width: '80%',
+        height: 60,
+        borderRadius: 7,
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 20,
     },
     buttonA: {
-        backgroundColor: '#007bff',
+        //backgroundColor: '#007bff',
+        backgroundColor: Themes.colors.white,
     },
     buttonB: {
-        backgroundColor: '#dc3545',
+        //backgroundColor: '#dc3545',
+        backgroundColor: Themes.colors.white,
     },
     buttonText: {
-        color: '#ffffff',
+        //color: '#ffffff',
+        color: '#000000',
         fontSize: 18,
+        fontFamily: 'Poppins-SemiBold'
+    },
+    subText: {
+        color: '#000000',
+        fontSize: 14,
+        fontFamily: 'Poppins'
     },
     userAlreadyCreatedText: {
         color: 'red',
