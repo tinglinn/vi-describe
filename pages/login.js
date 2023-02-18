@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet } from 'react-native';
 import { supabase } from '../supabase_client'
 
-var userAlreadyCreated = null;
 const LoginType = ({ navigation }) => {
     const handleLogin = (userType) => {
         navigation.navigate('Login', { userType });
@@ -37,7 +36,7 @@ const Login = ({ navigation, route }) => {
         .eq("username", email)
 
 
-        if (data != null) {
+        if (Object.keys(data).length != 0) {
             setEmailUsed(true);
         }
         else {
