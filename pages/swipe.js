@@ -59,11 +59,12 @@ export default function Card ({ navigation })  {
     var Screen = null;
     if (!showDetails) {
         Screen =
-            <TouchableOpacity onPress={handleImagePress} style={styles.imageCard}>
-                <Swipecards />
-                {/* // <Image style={styles.image} source={require('../assets/images/login_logo.png')} /> */}
-                <View style={styles.promptBox}><Text style={styles.prompt}>Prompt goes here: here it is here it is here it is here it is</Text></View>
-            </TouchableOpacity>
+        <View>
+            <Swipecards />
+            <Pressable onPress={handleImagePress}><Text>Write a description</Text></Pressable>
+        </View>
+        
+        
     } else {
         Screen =
             <ScrollView contentContainerStyle={styles.detailsContainer}>

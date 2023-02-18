@@ -4,9 +4,8 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, ImageBackground, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity,ImageBackground, Dimensions } from 'react-native';
 import Themes from '../assets/themes';
-
 import SwipeCards from 'react-native-swipe-cards';
 
 class Card extends React.Component {
@@ -22,10 +21,10 @@ class Card extends React.Component {
                 imageStyle={styles.image}
             >
                 <View style={styles.image_box_top}>
-                    <Text style={styles.subheading_text}>MTL</Text>
+                    <Text style={styles.subheading_text}>Art</Text>
                 </View>
                 <View style={styles.image_box_bottom}>
-                    <Text style={styles.body_text}>2 miles away</Text>
+                    <Text style={styles.body_text}>art</Text>
                 </View>
             </ImageBackground>
 
