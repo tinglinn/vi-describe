@@ -7,19 +7,19 @@ import { supabase } from '../supabase_client';
 
 const Login = () => {
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [passphrase, setPassphrase] = useState('');
     const [userType, setUserType] = useState('');
 
-    const handleLogin = async (email, password, userType) => {
+    const handleLogin = async (email, passphrase, userType) => {
         // Handle login logic here
         console.log("sex achieved")
         const { data, error } = await supabase 
         .from('USERS_LIST')
-        .insert([
-            {username: email, user_id: 1, password: password, usertype: userType},
-        ]);
+        .insert(
+            { username: email, user_id: 1, password: passphrase, usertype: userType },
+        );
         console.log(data, error)
-        console.log(`Email: ${email}, Password: ${password}, User Type: ${userType}`);
+        console.log(`Email: ${email}, Passphrase: ${passphrase}, User Type: ${userType}`);
     };
 
     return (
@@ -48,9 +48,9 @@ const Login = () => {
             <Text style={styles.label}>Password</Text>
             <TextInput
                 style={styles.input}
-                value={password}
-                onChangeText={setPassword}
-                placeholder="Enter password"
+                value={passphrase}
+                onChangeText={setPassphrase}
+                placeholder="Enter passphrase"
                 secureTextEntry
             />
             <Button title="Login" onPress={handleLogin} />
