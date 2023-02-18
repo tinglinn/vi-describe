@@ -21,7 +21,7 @@ const Tab = createBottomTabNavigator();
 
 export default function BottomTabs({ navigation, route }) {
     const { userType } = route.params;
-    var HomeScreen = (userType == "ni") ? SwipeScreen : UploadScreen; // toggle based on user type
+    var HomeScreen = (userType == "A") ? UploadScreen : SwipeScreen; // toggle based on user type
     
     return (
         <Tab.Navigator
@@ -34,7 +34,7 @@ export default function BottomTabs({ navigation, route }) {
                 tabBarLabelStyle: { fontSize: 12, fontFamily: 'Poppins'}
             }}  
         >
-            <Tab.Screen name="Home" component={SwipeScreen} />
+            <Tab.Screen name="Home" component={HomeScreen} />
             <Tab.Screen name="Gallery" component={GalleryScreen} />
             <Tab.Screen name="Notifs" component={NotifsScreen} />
             <Tab.Screen name="Profile" component={ProfileScreen} />
