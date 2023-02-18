@@ -29,6 +29,7 @@ const Login = ({ navigation, route }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailUsed, setEmailUsed] = useState(false)
+    const [correctPassword, setCorrectPassword] = useState(true)
     const { userType } = route.params;
     
     const handleLogin = async () => {
@@ -39,9 +40,16 @@ const Login = ({ navigation, route }) => {
         .select()
         .eq("username", email)
 
-
+        console.log(data);
         if (Object.keys(data).length != 0) {
             setEmailUsed(true);
+            console.log(data);
+            if (data[0]['password'] != password) {
+                setCorrectPassword(false)
+            }
+            else {
+                navigation.navigate("Main", { userType });
+            }
         }
         else {
             const { data, error } = await supabase
@@ -54,7 +62,7 @@ const Login = ({ navigation, route }) => {
 
         }
     };
-    var emailUsedAlert = emailUsed ? <Text style={styles.userAlreadyCreatedText}> Email already in use!</Text> : null;
+    var emailUsedAlert = (emailUsed && !correctPassword) ? <Text style={styles.userAlreadyCreatedText}> Email already in use but password incorrect!</Text> : null;
     return (
         <View style={styles.container}>
             <View style={styles.infoContainer}>
