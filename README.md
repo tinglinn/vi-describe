@@ -22,3 +22,21 @@ WARNING: Note that URLs are only valid for a specified finite time,
 so make sure that the database either deletes the image or entry in IMAGE_INFO table.
 
 
+FUNCTION TO GET LATEST IMAGE:
+
+const insertImageData = async () => {
+        // Handle login logic here
+
+        const { data, error } = await supabase
+        .from('IMAGE_INFO')
+        .insert(
+            {image_id: 2, image_name: "IMG_FA1468EF1C2A-1.jpeg", url: "https://jdkwthcuizrwzcpulkex.supabase.co/storage/v1/object/sign/image-pngs/IMG_FA1468EF1C2A-1.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZS1wbmdzL0lNR19GQTE0NjhFRjFDMkEtMS5qcGVnIiwiaWF0IjoxNjc2NzA5NDIzLCJleHAiOjE3MDgyNDU0MjN9.e8PnHP8soSMb_zkqPABpa_TcMd8Z2Et9V1WciPKYGUQ&t=2023-02-18T08%3A37%3A03.261Z", comment_ids: null, resolved: false, prompt: "Prompt"}
+        )
+    };
+
+    const getLatestImage = async () => {
+        const {data, error} = await supabase
+        .rpc('test_sql_query');
+        
+        console.log(data, error)
+    }
