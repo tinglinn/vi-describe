@@ -282,10 +282,10 @@ const LoginType = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <ImageBackground source={require('../assets/images/login_logo.png')} resizeMode="cover" style={styles.loginImage} />
-            <TouchableOpacity style={[styles.button, styles.buttonA]} onPress={() => handleLogin('A')}>
+            <TouchableOpacity style={styles.button} onPress={() => handleLogin('A')}>
                 <Text style={styles.buttonText}>I need visual assistance</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.button, styles.buttonB]} onPress={() => handleLogin('B')}>
+            <TouchableOpacity style={[styles.button, {marginBottom: 50}]} onPress={() => handleLogin('B')}>
                 <Text style={styles.buttonText}>I'd like to volunteer</Text>
             </TouchableOpacity>
         </View>
@@ -327,26 +327,27 @@ const Login = ({ navigation, route }) => {
     var emailUsedAlert = emailUsed ? <Text style={styles.userAlreadyCreatedText}> Email already in use!</Text> : null;
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Login</Text>
-            <Text style={styles.label}>Email</Text>
-            {emailUsedAlert}
-            <TextInput
-                style={styles.input}
-                value={email}
-                onChangeText={setEmail}
-                placeholder="Enter email"
-                keyboardType="email-address"
-            />
-            
-            <Text style={styles.label}>Password</Text>
-            <TextInput
-                style={styles.input}
-                value={password}
-                onChangeText={setPassword}
-                placeholder="Enter password"
-                secureTextEntry
-            />
-            <Button title="Login" style={styles.button} onPress={handleLogin}  />
+            <View style={styles.infoContainer}>
+                <Text style={styles.title}>Login</Text>
+                <Text style={styles.label}>Email</Text>
+                <TextInput
+                    style={styles.input}
+                    value={email}
+                    onChangeText={setEmail}
+                    placeholder="Enter email"
+                    keyboardType="email-address"
+                />
+                {emailUsedAlert}
+                <Text style={styles.label}>Password</Text>
+                <TextInput
+                    style={styles.input}
+                    value={password}
+                    onChangeText={setPassword}
+                    placeholder="Enter password"
+                    secureTextEntry
+                    />
+                <Button title="Login" onPress={handleLogin} />
+            </View>
         </View>
     );
 };
@@ -359,8 +360,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         backgroundColor: '#4c80fe'
     },
+    infoContainer: {
+        backgroundColor: Themes.colors.white,
+        width: '100%',
+        padding: 20,
+        borderRadius: 5,
+        marginBottom: 30
+    },
     title: {
-        fontFamily: "Poppins",
+        fontFamily: "Poppins-SemiBold",
         fontSize: 24,
         marginBottom: 20,
     },
@@ -381,8 +389,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'whitesmoke'
     },
     loginImage: {
+        marginTop: 40,
         width: '100%',
-        height: '70%'
+        height: '70%',
     },
     appName: {
         fontFamily: 'Poppins-SemiBold',
@@ -401,14 +410,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 20,
-    },
-    buttonA: {
-        //backgroundColor: '#007bff',
-        backgroundColor: Themes.colors.white,
-    },
-    buttonB: {
-        //backgroundColor: '#dc3545',
-        backgroundColor: Themes.colors.white,
+        backgroundColor: Themes.colors.white
     },
     buttonText: {
         //color: '#ffffff',
@@ -422,8 +424,9 @@ const styles = StyleSheet.create({
         fontFamily: 'Poppins'
     },
     userAlreadyCreatedText: {
-        color: 'red',
-        fontSize: 9,
+        fontFamily: 'Poppins',
+        color: '#8B0000',
+        fontSize: 12,
     },
 });
 

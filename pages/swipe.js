@@ -3,9 +3,9 @@ import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet, Image, Scr
 import Themes from '../assets/themes';
 import { supabase } from '../supabase_client';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+//import SwipeCards from 'react-native-cards-swipe';
 
-
-export default function ImageScreen ({ navigation })  {
+export default function Card ({ navigation })  {
     const [showDetails, setShowDetails] = useState(false);
     const [comment, setComment] = useState('');
     const [comments, setComments] = useState([]);
@@ -59,7 +59,7 @@ export default function ImageScreen ({ navigation })  {
                 <BackButton/>
                 <View style={styles.imageCard}>
                     <Image style={styles.image} source={require('../assets/images/login_logo.png')} />
-                    <View style={styles.promptBox}><Text style={styles.prompt}>Prompt goes here: here it is here it is here it is here it is</Text></View>
+                    <View style={styles.promptBox}><Text style={styles.prompt}>Prompt: here it is here it is here it is here it is</Text></View>
                 </View>
                 <View style={styles.commentsContainer}>
                     <Text style={styles.prompt}>Enter your description:</Text>
@@ -91,31 +91,6 @@ export default function ImageScreen ({ navigation })  {
     );
 };
 
-/*<TouchableOpacity onPress={handleImagePress}>
-                <Image style={styles.image} source={{ uri: IMAGE_URL }} />
-            </TouchableOpacity>
-            {showDetails && (
-                <View style={styles.detailsContainer}>
-                    <Image style={styles.image} source={{ uri: IMAGE_URL }} />
-                    <Text style={styles.prompt}>Enter a comment:</Text>
-                    <TextInput
-                        style={styles.input}
-                        value={comment}
-                        onChangeText={setComment}
-                        placeholder="Type your comment here"
-                    />
-                    <TouchableOpacity style={styles.button} onPress={handleSubmitComment}>
-                        <Text style={styles.buttonText}>Submit</Text>
-                    </TouchableOpacity>
-                    <ScrollView style={styles.commentsContainer}>
-                        {comments.map((comment, index) => (
-                            <Text key={index} style={styles.comment}>
-                                {comment}
-                            </Text>
-                        ))}
-                    </ScrollView>
-                </View>
-            )}*/
 const styles = StyleSheet.create({
     container: {
         flex: 1,
