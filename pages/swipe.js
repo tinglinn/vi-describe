@@ -1,19 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet, Image, ScrollView, Pressable } from 'react-native';
 import Themes from '../assets/themes';
 import { supabase } from '../supabase_client';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Swipecards from '../components/swipecards';
-//import SwipeCards from 'react-native-cards-swipe';
+
+
 
 export default function Card ({ navigation })  {
     const [showDetails, setShowDetails] = useState(false);
     const [comment, setComment] = useState('');
     const [comments, setComments] = useState([]);
+    //const [profiles, setProfiles] = useState([]);
+
+    // useEffect(() => {
+    //     getAllImages()
+    // }, [profiles])
 
     const handleImagePress = () => {
         setShowDetails(true);
     };
+
+    // const getAllImages = async () => {
+    //     const {data, error} = await supabase
+    //     .rpc('get_all_images');
+    //     console.log(data, error)
+    //     setProfiles(data);
+    //     console.log(profiles);
+    // }
 
     const handleSubmitComment = () => {
         // this is def not correct, should handle submitting comment logic here
@@ -22,8 +36,6 @@ export default function Card ({ navigation })  {
     };
 
     const insertImageData = async () => {
-        // Handle login logic here
-
         const { data, error } = await supabase
             .from('IMAGE_INFO')
             .insert(
@@ -57,7 +69,7 @@ export default function Card ({ navigation })  {
     // }
 
     var Screen = null;
-    if (!showDetails) {
+    // if (!showDetails) {
         Screen =
         <View>
             <Swipecards />
@@ -65,37 +77,37 @@ export default function Card ({ navigation })  {
         </View>
         
         
-    } else {
-        Screen =
-            <ScrollView contentContainerStyle={styles.detailsContainer}>
-                <BackButton/>
-                <View style={styles.imageCard}>
-                    <Image style={styles.image} source={require('../assets/images/login_logo.png')} />
-                    <View style={styles.promptBox}><Text style={styles.prompt}>Prompt: here it is here it is here it is here it is</Text></View>
-                </View>
-                <View style={styles.commentsContainer}>
-                    <Text style={styles.prompt}>Enter your description:</Text>
-                    <TextInput
-                        style={styles.input}
-                        value={comment}
-                        onChangeText={setComment}
-                        placeholder="Type your description here"
-                    />
-                    <TouchableOpacity style={styles.button} onPress={handleSubmitComment}>
-                        <Text style={styles.buttonText}>Submit</Text>
-                    </TouchableOpacity>
-                </View>
+    // } else {
+    //     Screen =
+    //         <ScrollView contentContainerStyle={styles.detailsContainer}>
+    //             <BackButton/>
+    //             <View style={styles.imageCard}>
+    //                 <Image style={styles.image} source={require('../assets/images/login_logo.png')} />
+    //                 <View style={styles.promptBox}><Text style={styles.prompt}>Prompt: here it is here it is here it is here it is</Text></View>
+    //             </View>
+    //             <View style={styles.commentsContainer}>
+    //                 <Text style={styles.prompt}>Enter your description:</Text>
+    //                 <TextInput
+    //                     style={styles.input}
+    //                     value={comment}
+    //                     onChangeText={setComment}
+    //                     placeholder="Type your description here"
+    //                 />
+    //                 <TouchableOpacity style={styles.button} onPress={handleSubmitComment}>
+    //                     <Text style={styles.buttonText}>Submit</Text>
+    //                 </TouchableOpacity>
+    //             </View>
                 
-                <View style={styles.commentsContainer}>
-                    <Text style={styles.prompt}>Existing Comments</Text>
-                    {comments.map((comment, index) => (
-                        <Text key={index} style={styles.comment}>
-                            {comment}
-                        </Text>
-                    ))}
-                </View>
-            </ScrollView>
-    }
+    //             <View style={styles.commentsContainer}>
+    //                 <Text style={styles.prompt}>Existing Comments</Text>
+    //                 {comments.map((comment, index) => (
+    //                     <Text key={index} style={styles.comment}>
+    //                         {comment}
+    //                     </Text>
+    //                 ))}
+    //             </View>
+    //         </ScrollView>
+    // }
     return (
         <View style={styles.container}>
             {Screen}
