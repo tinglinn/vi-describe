@@ -12,6 +12,7 @@ const Login = () => {
 
     const handleLogin = async (email, password, userType) => {
         // Handle login logic here
+        console.log("sex achieved")
         const { data, error } = await supabase 
         .from('USERS_LIST')
         .insert([
