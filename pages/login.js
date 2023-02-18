@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet } from 'react-native';
+import { supabase } from '../supabase_client'
 
 const LoginType = ({ navigation }) => {
     const handleLogin = (userType) => {
@@ -25,8 +26,14 @@ const Login = ({ navigation, route }) => {
     const [password, setPassword] = useState('');
     const { userType } = route.params;
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         // Handle login logic here
+        const { data, error } = await supabase
+        .from('USER_LIST')
+        .insert(
+            {username: email, password: password, usertype: userType, user_id: 1}
+        )
+
         console.log(`Email: ${email}, Password: ${password}, User Type: ${userType}`);
         navigation.navigate("Main", { userType });
     };
