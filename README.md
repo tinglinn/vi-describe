@@ -40,3 +40,27 @@ const insertImageData = async () => {
         
         console.log(data, error)
     }
+    
+    
+    SHIT SEAN WORKED ON THAT DOESNT WORK
+    const { data, error } = await supabase
+        .from('USERS_LIST')
+        .select('password')
+        .eq('username', email)
+        //console.log(Object.keys(data))
+        console.log(data)
+        //console.log(typeof(data))
+        if (Object.keys(data).length != 0) {
+            //setEmailUsed(true);
+            console.log(data.password)
+            console.log(password_input)
+            if (data.password != password_input) {
+                //console.log("incorrect password!")
+                
+                setPasswordUsed(true);
+            }
+            else {
+                navigation.navigate("Main", { userType });
+            }
+            
+        }
