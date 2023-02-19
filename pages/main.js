@@ -14,6 +14,8 @@ import UploadScreen from './upload';
 import GalleryScreen from './gallery';
 import NotifsScreen from './notifs';
 import ProfileScreen from './profile';
+import YourFeedScreen from './yourfeed';
+import ExploreScreen from './explore';
 
 /* set up function to toggle between swipe and upload, depending on which kind of user */
 
@@ -40,7 +42,7 @@ export default function BottomTabs({ navigation, route }) {
                     < MaterialCommunityIcons name="pencil-box-multiple-outline" color={ color } size={ Themes.fonts.iconSize } />
                 ),
             }} />
-            <Tab.Screen name="Gallery" component={GalleryScreen} options={{
+            <Tab.Screen name="Gallery" component={ExploreScreen} options={{
                 tabBarLabel: 'Gallery',
                 tabBarIcon: ({ color }) => (
                     < Ionicons name="md-search-sharp" color={color} size={Themes.fonts.iconSize} />
