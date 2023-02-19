@@ -81,7 +81,7 @@ export default class extends React.Component {
         const { error2 } = await supabase
         .from('COMMENTS')
         .insert(
-            {comment_id: new_comment_id, content: this.state.comment, user_id: 1, title: "", image_id: this.state.cards[this.state.currentCard].url}
+            {comment_id: new_comment_id, content: this.state.comment, user_id: 1, title: "", image_url: this.state.cards[this.state.currentCard].url}
         )
         console.log("COMMENT:", this.state.comment, new_comment_id)
         console.log("URL:", this.state.cards[this.state.currentCard].url)

@@ -9,8 +9,8 @@ import { Foundation, MaterialCommunityIcons } from '@expo/vector-icons';
 const { width } = Dimensions.get('window');
 const imageWidth = width / 2.2;
 
-var images = []
-var captions = []
+//var images = []
+//var captions = []
 var headings = []
 var dates = []
 // const images = [
@@ -26,18 +26,18 @@ var dates = []
 //    { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
 // ];
 
-// const captions = [
-//     ["Vincent Van Gogh Painting", "Blue and Yellow Sky", "wave like clouds with a tower", "bruh"],
-//     ["The woman sits markedly upright in a pozzeto armchair with her arms folded, a sign of her reserved posture. Her gaze is fixed on the observer",  "this is u", "this is a", "this is l"],
-//     ["this is b", "this is u", "this is a", "this is l"],
-//     ["this is u",  "this is u", "this is a", "this is l"],
-//     ["this is b", "this is u", "this is a", "this is l"],
-//     ["this is u",  "this is u", "this is a", "this is l"],
-//     ["this is b", "this is u", "this is a", "this is l"],
-//     ["this is u",  "this is u", "this is a", "this is l"],
-//     ["this is b", "this is u", "this is a", "this is l"],
-//     ["this is u",  "this is u", "this is a", "this is l"],
-// ];
+const captions = [
+    ["Vincent Van Gogh Painting", "Blue and Yellow Sky", "wave like clouds with a tower", "bruh"],
+    ["The woman sits markedly upright in a pozzeto armchair with her arms folded, a sign of her reserved posture. Her gaze is fixed on the observer",  "this is u", "this is a", "this is l"],
+    ["this is b", "this is u", "this is a", "this is l"],
+    ["this is u",  "this is u", "this is a", "this is l"],
+    ["this is b", "this is u", "this is a", "this is l"],
+    ["this is u",  "this is u", "this is a", "this is l"],
+    ["this is b", "this is u", "this is a", "this is l"],
+    ["this is u",  "this is u", "this is a", "this is l"],
+    ["this is b", "this is u", "this is a", "this is l"],
+    ["this is u",  "this is u", "this is a", "this is l"],
+];
 
 // const headings = [
 //     "Starry Night",
@@ -72,6 +72,7 @@ var dates = []
 function YourFeedScreen({ navigation }) {
  const all_images = get_all_user_data();
  const [userData, setUserData] = useState([])
+
  const [isMounted, setIsMounted] = useState(false);
 
  async function get_all_user_data () {
@@ -80,10 +81,13 @@ function YourFeedScreen({ navigation }) {
   if (data.length !== userData.length) {
     setUserData(data);
   }
-  
 }
 
- useEffect(() => {
+
+
+
+
+  useEffect(() => {
   // if (prevInputRef !== null && userData === prevInputRef) {
   //   return;
   // }
@@ -91,14 +95,17 @@ function YourFeedScreen({ navigation }) {
   // prevInputRef = userData;
  }, [userData]
  )
+
+
  console.log("god DAMMMMMMN:", userData);
+
 //  var images = []
 //  var captions = []
 //  var headings = []
 //  var dates = []
  console.log("User data length:", userData.length)
  images = []
- captions = []
+ //captions = []
  headings = []
  dates = []
  for (let i = 0; i < userData.length; i++) {
@@ -150,6 +157,31 @@ function YourFeedScreen({ navigation }) {
 function ImageScreen({ navigation, route }) {
     const { imageIndex } = route.params;
     const image = images[imageIndex];
+    
+    const [commentData, setCommentData] = useState([]);
+
+    
+
+    
+    async function get_all_image_comments () {
+      const {commentList, error} = await supabase
+      .rpc('com_image', { aaaa: 'https://cburolnykagrisqerphu.supabase.co/storage/v1/object/public/images/climb.png' });
+      console.log("COMMENTLIST:", commentList);
+      console.log("ERROR", error);
+      // if (commentList.length !== commentData.length) {
+      //   setCommentData(commentList);
+      // }
+    }
+
+    useEffect(() => {
+      // if (prevInputRef !== null && userData === prevInputRef) {
+      //   return;
+      // }
+      get_all_image_comments();
+      // prevInputRef = userData;
+     }, [commentData]
+     )
+      console.log("comment DAAAAAAAATA:", commentData);
     const commentViews = [];
     for (let i = 0; i < captions[imageIndex].length; i ++) {
         const commentView = (
@@ -161,6 +193,16 @@ function ImageScreen({ navigation, route }) {
         );
         commentViews.push(commentView)
     }
+    // for (let i = 0; i < commentData.length; i ++) {
+    //     const commentView = (
+    //       <View key={i} style={styles.input}>
+    //         <Text style={styles.comment}>
+    //           {commentData[i]['content']}
+    //         </Text>
+    //       </View>
+    //     );
+    //     commentViews.push(commentView)
+    // }
   
     return (
       <SafeAreaView style={styles.mainBody}>
