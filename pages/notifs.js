@@ -5,8 +5,8 @@ import Themes from '../assets/themes';
 const NOTIFICATIONS = [
     {
         id: '1',
-        title: 'New upvotes',
-        message: 'You have 5 new upvotes from users John Doe...',
+        title: 'New comments',
+        message: 'You have two new comments on your post',
         timestamp: '3 hours ago',
         read: false,
     },
