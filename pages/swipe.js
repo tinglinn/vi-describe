@@ -14,19 +14,24 @@ export default function Card ({ navigation })  {
     const handleImagePress = () => {
         setShowDetails(true);
     };
+    const getAllComments = async () => {
+        const {data, error} = await supabase
+        .rpc('get_all_comments');
+        //console.log("DATA:", data);      
+        //console.log(Object.keys(data).length);
+        return Object.keys(data).length;
+    }
 
     const handleSubmitComment = async () => {
 
-        // this is def not correct, should handle submitting comment logic here
-        const {data1, error1} = await supabase
-        .rpc('get_last_comment');
-        let new_comment_id = data1[0]['comment_id'] + 1;
+        // new comment ID number       
+        let new_comment_id = await getAllComments() + 1;
 
         //updates COMMENTS to store the new comment
         const { data2, error2 } = await supabase
         .from('COMMENTS_LIST')
         .insert(
-            {comment_id: new_comment_id, content: comment}
+            {comment_id: new_comment_id, content: comment, title: }
         )
         
         // update IMAGE_INFO to contain this comment with corresponding image

@@ -7,17 +7,34 @@ import Themes from '../assets/themes';
 export default function ImageUpload () {
     const [image, setImage] = useState(null);
     const [prompt, setPrompt] = useState('');
+    const [imageUrl, setImageUrl] = useState('');
+    const [numImages, setNumImages] = useState(0);
 
-    const upload = Upload({
-        apiKey: "public_kW15b5DCGeXqW1ZyeN5JnPMx886t" // Your real API key.
-      });
+    const getAllImages = async () => {
+        const {data, error} = await supabase
+        .rpc('get_all_images');
+        console.log("DATA:", data);      
+        console.log(Object.keys(data).length);
+        return Object.keys(data).length;
+    }
+
+    const insertNewImage = async (bahee) => {
+        console.log("Inserting image");
+        const numImages = await getAllImages();
+        console.log(bahee);
+        console.log(prompt);
+        prefix = "https://cburolnykagrisqerphu.supabase.co/storage/v1/object/public/images/"
+        const { error } = await supabase
+        .from('IMAGE_INFO')
+        .insert({image_id: numImages + 1, image_name: bahee.substring(0, bahee.length - 4), url: prefix + bahee.substring(0, bahee.length - 4) + ".png", comment_ids: [], resolved: false, prompt: prompt});
+    }
 
       const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
           allowsEditing: true,
           aspect: [4, 3],
-          quality: 1,
+          quality: 0,
         });
     
         if (!result.canceled) {
@@ -41,12 +58,15 @@ export default function ImageUpload () {
             try {
                 console.log(file);
                 const { data, error } = await supabase.storage.from('images').upload(newFilename, file);
-
+                
                 if (error) {
                     console.log('Error uploading image:', error.message);
                 } else {
-                    const imageUrl = data.path;
-                    console.log('Image uploaded successfully:', imageUrl, prompt);
+                    const tempUrl = data.path;
+                    console.log("Temporary URL:", tempUrl);
+                    setImageUrl(tempUrl);
+                    console.log('Image uploaded successfully:', tempUrl, prompt);
+                    insertNewImage(tempUrl);
                 }
             } catch (error) {
                 console.log('Error uploading image:', error.message);
@@ -60,6 +80,8 @@ export default function ImageUpload () {
         Alert.alert("Successfully posted!");
         setImage(null);
         setPrompt(null);
+        
+
     }
 
     return (
