@@ -22,7 +22,7 @@ export default function ImageUpload () {
         if (!result.canceled) {
             console.log("Going");
             setImage(result.uri);
-            const blob = await response.blob();
+            const blob = await result.blob();
             let selectedImage = new File([blob], "image1");
             console.log("Selected image");
 
