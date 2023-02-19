@@ -182,11 +182,12 @@ const styles = StyleSheet.create({
  },
  imageText: {
     maxWidth: imageWidth,
-    marginLeft: 5,
+    marginLeft: 3,
     marginTop: 7,
     marginBottom: 4,
     color: '#004475',
-    fontSize: 14
+    fontSize: 12,
+    fontFamily: 'Poppins',
   },
   enhancedText: {
     textAlign: 'center',
@@ -194,7 +195,8 @@ const styles = StyleSheet.create({
     color: Themes.colors.black,
     fontWeight: 'bold',
     marginLeft: 10,
-    marginRight: 10
+    marginRight: 10,
+    fontFamily: 'Poppins',
   },
   image_text: {
     // borderRadius: 2,
@@ -213,6 +215,7 @@ const styles = StyleSheet.create({
   heading: {
     marginLeft: 3,
     marginTop: 5,
+    fontFamily: 'Poppins-SemiBold',
     fontWeight: 'bold',
     color: "#004475",
     fontSize: 14
@@ -221,18 +224,20 @@ const styles = StyleSheet.create({
     marginLeft: 3,
     fontWeight: 'bold',
     color: "#6F87A4",
-    fontSize: 10
+    fontSize: 10,
+    fontFamily: 'Poppins-SemiBold'
   },
   gallery: {
     color: "#004475",
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
     fontSize: 22,
+    fontFamily: 'Poppins-SemiBold',
     marginBottom: 15,
     marginTop: 10,
     textAlign: 'center'
   },
   card: {
-    height: 270,
+    height: 275,
     width: 170,
     borderRadius: 15,
     borderWidth: 0.2,
@@ -247,7 +252,7 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   dateBox: {
-    marginLeft: 5, 
+    marginLeft: 2, 
     marginTop: 3, 
     flexDirection: 'row', 
     alignItems: 'center'

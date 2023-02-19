@@ -4,6 +4,9 @@ import * as ImagePicker from 'expo-image-picker';
 import { supabase } from '../supabase_client';
 import { Upload } from 'upload-js'
 import Themes from '../assets/themes';
+import SubmitButton from '../components/submitButton';
+import { MaterialIcons } from '@expo/vector-icons'; 
+
 export default function ImageUpload () {
     const [image, setImage] = useState(null);
     const [prompt, setPrompt] = useState('');
@@ -64,20 +67,22 @@ export default function ImageUpload () {
 
     return (
         <View style={styles.container}>
-
+            <Text style={styles.header}>Submit Artwork</Text>
             <View style={styles.uploadCard}>
-                <Text style={styles.uploadText}>Upload</Text>
-                <Text style={styles.reminder}>Choose an artwork that you would like others to describe.</Text>
+                <Text style={styles.titleText}>Choose an artwork that you would like others to describe.</Text>
                 <View style={{ width: '100%', alignItems: 'center' }}>
                     <TouchableOpacity onPress={pickImage} style={styles.uploadBox}>
-                        {!image && <Text style={[styles.reminder, { color: 'lightgray' }]}>Browse to chose an image</Text>}
+                        {!image &&
+                            <View style={{ marginRight: 10, marginBottom: 10, borderWidth: 1, borderColor: Themes.colors.darkblue, width: 40, aspectRatio: 1, borderRadius: 50, backgroundColor: Themes.colors.background, justifyContent: 'center', alignItems: 'center' }}>
+                                <MaterialIcons name="add-photo-alternate" size={24} color="black" />
+                            </View>
+                            }
                         {image && <Image source={{ uri: image }} style={styles.image} />}
                     </TouchableOpacity>
                 </View>
             </View>
             <View style={styles.promptBox}>
-                <Text style={styles.uploadText}>Text</Text>
-                <Text style={styles.reminder}>Optionally enter a prompt - what does this artwork mean to you? What would you like people to focus on?</Text>
+                <Text style={styles.titleText}>Optionally enter a prompt - what does this artwork mean to you? What would you like people to focus on?</Text>
                 <TextInput
                     style={styles.promptInput}
                     onChangeText={text => setPrompt(text)}
@@ -87,41 +92,42 @@ export default function ImageUpload () {
                     maxLength={100}
                     />
             </View>
-            <TouchableOpacity onPress={onSubmit}>
-                <View style={{ borderRadius: 5, marginTop: 20, width: 80, height: 40, backgroundColor: '#be3577', justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14, color: 'white'}}>Submit</Text>
-                </View>
-            </TouchableOpacity>
-            
+            <SubmitButton childFunction={onSubmit}/>
         </View>
     );
 };
 
 //<Button title="Submit" onPress={() => console.log(prompt, image)} />
+{/* <TouchableOpacity onPress={onSubmit}>
+    <View style={{ borderRadius: 5, marginTop: 20, width: 80, height: 40, backgroundColor: '#be3577', justifyContent: 'center', alignItems: 'center' }}>
+        <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 14, color: 'white' }}>Submit</Text>
+    </View>
+</TouchableOpacity> */}
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: Themes.colors.blue
+        backgroundColor: Themes.colors.lightblue
         //backgroundColor: '#9bc2ff'
     },
     titleText: {
         fontFamily: "Poppins-SemiBold",
-        color: 'white',
-        fontSize: 24,
-        textAlign: 'center'
+        color: Themes.colors.darkblue,
+        fontSize: 16,
+        //textAlign: 'center'
     },
-    subtitle: {
-        fontFamily: "Poppins",
-        color: 'white',
-        fontSize: 18,
-        textAlign: 'center'
+    header: {
+        fontFamily: "Poppins-SemiBold",
+        color: Themes.colors.darkblue,
+        fontSize: 22,
+        textAlign: 'center',
+        marginTop: 35
     },
     uploadCard: {
         width: '90%',
-        borderRadius: 5,
+        borderRadius: 10,
         backgroundColor: Themes.colors.white,
         padding: 20,
         marginTop: 30,
@@ -129,19 +135,20 @@ const styles = StyleSheet.create({
     },
     uploadText: {
         fontFamily: "Poppins-SemiBold",
-        fontSize: 22,
-        color: Themes.colors.black
+        fontSize: 18,
+        color: Themes.colors.darkblue
     },
     uploadBox: {
         width: '100%',
         height: 150,
-        borderRadius: 2,
-        borderWidth: 1,
-        borderColor: Themes.colors.verydark,
-        borderStyle: "dashed",
+        borderRadius: 10,
+        backgroundColor: '#CAD6E1',
+        // borderWidth: 1,
+        // borderColor: Themes.colors.verydark,
+        // borderStyle: "dashed",
         marginTop: 20,
-        justifyContent: 'center',
-        alignItems: 'center'
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end'
     },
     image: {
         width: '100%',
@@ -151,29 +158,31 @@ const styles = StyleSheet.create({
     },
     reminder: {
         fontFamily: 'Poppins',
-        fontSize: 14,
-        color: Themes.colors.black,
+        fontSize: 16,
+        color: Themes.colors.darkblue,
     },
     promptBox: {
         width: '90%',
-        borderRadius: 5,
+        borderRadius: 10,
         backgroundColor: Themes.colors.white,
         padding: 20,
         marginTop: 20,
+        marginBottom: 20
     },
     promptInput: {
         width: '100%',
-        height: 50,
+        height: 100,
         borderWidth: 1,
-        borderColor: Themes.colors.verydark,
-        borderStyle: 'dashed',
-        borderRadius: 2,
+        borderColor: Themes.colors.grayblue,
+        // borderStyle: 'dashed',
+        borderRadius: 10,
         padding: 10,
         marginBottom: 20,
         marginTop: 15,
-        textAlign: 'center',
+        textAlign: 'left',
         fontFamily: 'Poppins',
-        color: 'gray'
+        fontSize: 16,
+        color: Themes.colors.darkblue
     },
 });
 
