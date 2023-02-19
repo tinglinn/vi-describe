@@ -1,10 +1,7 @@
-// SwipeCards.js
-// DONT USE YET, ITS JUST BORROWED PLACEHOLDER CODE AND HAS NOT BEEN EDITED
-
 'use strict';
 
 import React, { Component, useEffect, useState } from 'react';
-import { ScrollView,StyleSheet, TextInput, Text, View, Image, TouchableOpacity,ImageBackground, Dimensions } from 'react-native';
+import { Alert, ScrollView, SafeAreaView, StyleSheet, TextInput, Text, View, Image, TouchableOpacity, ImageBackground, Dimensions, LinearGradient } from 'react-native';
 import Themes from '../assets/themes';
 import SwipeCards from 'react-native-swipe-cards';
 import { supabase } from '../supabase_client';
@@ -16,18 +13,11 @@ class Card extends React.Component {
 
     render() {
         return (
-            <ImageBackground
+            <Image
                 source={{ uri: this.props.url}} // pass in image param
                 style={[styles.card, {backgroundColor: this.props.backgroundColor}]}
                 imageStyle={styles.image}
-            >
-                <View style={styles.image_box_top}>
-                    <Text style={styles.subheading_text}>{}</Text>
-                </View>
-                <View style={styles.image_box_bottom}>
-                    <Text style={styles.body_text}>{this.props.prompt}</Text>
-                </View>
-            </ImageBackground>
+            />
 
         )
     }
@@ -37,13 +27,10 @@ class NoMoreCards extends Component {
     constructor(props) {
         super(props);
     }
-
     render() {
         return (
-            <View>
-                <Text style={styles.body_text}>No more cards</Text>
-            </View>
-        )
+            Alert.alert("No more images!")
+        );
     }
 }
 
@@ -94,7 +81,8 @@ export default class extends React.Component {
         // If you want a stack of cards instead of one-per-one view, activate stack mode
         // stack={true}
         return (
-            <View style={styles.mainBody}>
+            <SafeAreaView style={styles.mainBody}>
+                <View style={styles.colorblock}></View>
                 <SwipeCards
                     style={styles.swipeCards}
                     cards={this.state.cards}
@@ -106,80 +94,95 @@ export default class extends React.Component {
                     handleMaybe={this.handleMaybe}
                     hasMaybeAction
                 />
-                    <ScrollView contentContainerStyle={styles.detailsContainer}>
-                    <View style={styles.commentsContainer}>
-                        <Text style={styles.prompt}>Enter your description:</Text>
+                <ScrollView contentContainerStyle={styles.detailsContainer}>
+                    <View style={{ width: '85%', justifyContent: 'flex-start' }}>
+                        <Text style={styles.title}>Prompt</Text>
+                        <Text style={styles.prompt}>WRITE YOUR DESCRIPTION</Text>
                         <TextInput
                             style={styles.input}
                             value={this.state.comment}
-                            onChangeText={(value) => {this.setState(() => ({
+                            onChangeText={(value) => {
+                                this.setState(() => ({
                                     comment: value
-                                }))}}
-                            placeholder="Type your description here"
+                                }))
+                            }}
+                            placeholder="Name this piece of art"
                         />
-                        <TouchableOpacity style={styles.button} onPress={() => {
-                            this.setState(() => ({
-                                //comments: this.state.comments.push(this.state.comment),
-                                comment: ""
-                            }));
-                        }}>
-                            <Text style={styles.buttonText}>Submit</Text>
-                        </TouchableOpacity>
+                        <TextInput
+                            style={styles.input}
+                            value={this.state.comment}
+                            onChangeText={(value) => {
+                                this.setState(() => ({
+                                    comment: value
+                                }))
+                            }}
+                            placeholder="Describe this piece of art"
+                        />
+                        <View style={{width: '100%', alignItems: 'center'}}>
+                            <TouchableOpacity style={styles.button} onPress={() => {
+                                this.setState(() => ({
+                                    //comments: this.state.comments.push(this.state.comment),
+                                    comment: ""
+                                }));
+                            }}>
+                                <Text style={styles.buttonText}>SUBMIT</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <Text style={styles.prompt}>WHAT OTHERS SAID</Text>
+                        <View style={styles.input}>
+                            {this.state.comments.map((comment, index) => (
+                                <Text key={index} style={styles.comment}>
+                                    {comment}
+                                </Text>
+                            ))}
+                        </View>
                     </View>
                     
-                    <View style={styles.commentsContainer}>
-                        <Text style={styles.prompt}>Existing Comments</Text>
-                        {this.state.comments.map((comment, index) => (
-                            <Text key={index} style={styles.comment}>
-                                {comment}
-                            </Text>
-                        ))}
-                    </View>
+                    
                 </ScrollView>
-            </View>
+            </SafeAreaView>
         )
     }
 }
 
 const styles = StyleSheet.create({
-
     mainBody: {
-        backgroundColor: Themes.colors.black,
+        flex: 1,
+        backgroundColor: '#F7F7F7',
         display: "flex",
         justifyContent: "center",
-        padding: 20,
-        
     },
-    
+    colorblock: {
+        width: Dimensions.get('window').width,
+        height: 320,
+        backgroundColor: '#c6e2ff',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        margin: 0,
+    },
     image: {
-        width: '92%',
-        borderRadius: 15,
-    },
-
-    card: {
-        width: Dimensions.get('window').width - 0,
-        flex: 1,
-        left: 16,
-    },
-
-    // text
-    body_text: {
-        color: 'white',
-        fontFamily: 'Sydney',
-        fontSize: 25,
-    },
-
-    title_text: {
-        color: 'white',
-        fontFamily: 'Sydney-Bold',
-        fontSize: 30,
-    },
-    
-    detailsContainer: {
         width: '100%',
+    },
+    card: {
+        aspectRatio: 1,
+        width: Dimensions.get('window').width * 0.80,
+        borderRadius: 20,
         flex: 1,
-        justifyContent: 'flex-end',
+        marginTop: 10,
+    },
+    detailsContainer: {
+        marginTop: 30,
+        flex: 1,
         alignItems: "center",
+    },
+    title: {
+        textAlign: 'left',
+        fontFamily: 'Poppins-SemiBold',
+        //fontWeight: '700',
+        fontSize: 22,
+        color: Themes.colors.darkblue
     },
     promptBox: {
         alignItems: 'flex-start',
@@ -189,31 +192,40 @@ const styles = StyleSheet.create({
     prompt: {
         textAlign: 'left',
         fontFamily: 'Poppins',
-        fontSize: 16,
+        fontSize: 13,
         marginTop: 10,
         marginBottom: 5,
-        color: Themes.colors.white,
+        color: Themes.colors.darkblue,
     },
     input: {
         width: '100%',
         height: 40,
+        backgroundColor: 'white',
         borderWidth: 1,
-        borderColor: 'gray',
-        borderRadius: 5,
+        borderColor:'#6F87A4',
+        borderRadius: 15,
         paddingLeft: 10,
         marginTop: 5,
         marginBottom: 10,
+        fontSize: 14,
+        fontFamily: 'Poppins'
     },
     button: {
-        width: 70,
-        backgroundColor: '#2196F3',
-        padding: 10,
-        borderRadius: 5,
+        width: 140,
+        height: 40,
+        backgroundColor: '#276ABB',
+        //padding: 10,
+        borderRadius: 50,
         marginBottom: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 15,
+        marginBottom: 20
     },
     buttonText: {
+        fontFamily: "Poppins-SemiBold",
         color: 'white',
-        fontWeight: 'bold',
+        fontSize: 14
     },
     commentsContainer: {
         width: 360,

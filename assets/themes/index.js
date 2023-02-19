@@ -8,6 +8,7 @@ const colors = {
     blue: '#4c80fe',
     pink: '#EBD5E4',
     black: '#000001',
+    darkblue: '#004475',
 }
 
 const fonts = {

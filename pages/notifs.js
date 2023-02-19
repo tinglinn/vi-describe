@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
-        backgroundColor: Themes.colors.black,
+        backgroundColor: Themes.colors.white,
     },
     statItem: {
         flexDirection: 'row',
