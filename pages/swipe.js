@@ -11,11 +11,6 @@ export default function Card ({ navigation })  {
     const [showDetails, setShowDetails] = useState(false);
     const [comment, setComment] = useState('');
     const [comments, setComments] = useState([]);
-    //const [profiles, setProfiles] = useState([]);
-
-    // useEffect(() => {
-    //     getAllImages()
-    // }, [profiles])
 
     const handleImagePress = () => {
         setShowDetails(true);
@@ -87,46 +82,9 @@ export default function Card ({ navigation })  {
     //     .select(row=0)
     // }
 
-    var Screen = null;
-    // if (!showDetails) {
-        Screen =
-        <View>
+    var Screen = <View>
             <Swipecards />
-            <Pressable onPress={handleImagePress}><Text>Write a description</Text></Pressable>
         </View>
-        
-        
-    // } else {
-    //     Screen =
-    //         <ScrollView contentContainerStyle={styles.detailsContainer}>
-    //             <BackButton/>
-    //             <View style={styles.imageCard}>
-    //                 <Image style={styles.image} source={require('../assets/images/login_logo.png')} />
-    //                 <View style={styles.promptBox}><Text style={styles.prompt}>Prompt: here it is here it is here it is here it is</Text></View>
-    //             </View>
-    //             <View style={styles.commentsContainer}>
-    //                 <Text style={styles.prompt}>Enter your description:</Text>
-    //                 <TextInput
-    //                     style={styles.input}
-    //                     value={comment}
-    //                     onChangeText={setComment}
-    //                     placeholder="Type your description here"
-    //                 />
-    //                 <TouchableOpacity style={styles.button} onPress={handleSubmitComment}>
-    //                     <Text style={styles.buttonText}>Submit</Text>
-    //                 </TouchableOpacity>
-    //             </View>
-                
-    //             <View style={styles.commentsContainer}>
-    //                 <Text style={styles.prompt}>Existing Comments</Text>
-    //                 {comments.map((comment, index) => (
-    //                     <Text key={index} style={styles.comment}>
-    //                         {comment}
-    //                     </Text>
-    //                 ))}
-    //             </View>
-    //         </ScrollView>
-    // }
     return (
         <View style={styles.container}>
             {Screen}
@@ -138,70 +96,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
-    },
-    imageCard: {
-        width: 360,
-        height: 450,
-        padding: 10,
-        borderRadius: 10,
-        backgroundColor: Themes.colors.white,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    image: {
-        width: 340,
-        height: 340,
-        borderRadius: 10,
-        marginBottom: 10,
-    },
-    detailsContainer: {
-        width: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    promptBox: {
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-        width: '100%',
-    },
-    prompt: {
-        textAlign: 'left',
-        fontFamily: 'Poppins',
-        fontSize: 16,
-        marginTop: 10,
-        marginBottom: 5,
-    },
-    input: {
-        width: '100%',
-        height: 40,
-        borderWidth: 1,
-        borderColor: 'gray',
-        borderRadius: 5,
-        paddingLeft: 10,
-        marginTop: 5,
-        marginBottom: 10,
-    },
-    button: {
-        width: 70,
-        backgroundColor: '#2196F3',
-        padding: 10,
-        borderRadius: 5,
-        marginBottom: 10,
-    },
-    buttonText: {
-        color: 'white',
-        fontWeight: 'bold',
-    },
-    commentsContainer: {
-        width: 360,
-        backgroundColor: Themes.colors.white,
-        borderRadius: 5,
-        padding: 10,
-        marginTop: 10,
-    },
-    comment: {
-        fontSize: 14,
-        marginBottom: 5,
+        justifyContent: 'flex-start',
+        color: Themes.colors.black
     },
 });
