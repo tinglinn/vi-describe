@@ -10,41 +10,11 @@ export default function Card ({ navigation })  {
     const [showDetails, setShowDetails] = useState(false);
     const [comment, setComment] = useState('');
     const [comments, setComments] = useState([]);
-
+    
     const handleImagePress = () => {
         setShowDetails(true);
     };
-    const getAllComments = async () => {
-        const {data, error} = await supabase
-        .rpc('get_all_comments');
-        //console.log("DATA:", data);      
-        //console.log(Object.keys(data).length);
-        return Object.keys(data).length;
-    }
-
-    const handleSubmitComment = async () => {
-
-        // new comment ID number       
-        let new_comment_id = await getAllComments() + 1;
-
-        //updates COMMENTS to store the new comment
-        const { data2, error2 } = await supabase
-        .from('COMMENTS_LIST')
-        .insert(
-            {comment_id: new_comment_id, content: comment, title: }
-        )
-        
-        // update IMAGE_INFO to contain this comment with corresponding image
-        const { data3, error3 } = await supabase
-        .from('IMAGE_INFO')
-        .update(
-            {comment_ids: JSON.stringify(new_comment_id)}
-        )
-        
-        
-        setComments([...comments, comment]);
-        setComment('');
-    };
+    
 
     const insertImageData = async () => {
         const { data, error } = await supabase

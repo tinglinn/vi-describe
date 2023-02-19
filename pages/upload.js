@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Text, View, TextInput, Button, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { supabase } from '../supabase_client';
-import { Upload } from 'upload-js'
 import Themes from '../assets/themes';
 import SubmitButton from '../components/submitButton';
 import { MaterialIcons } from '@expo/vector-icons'; 

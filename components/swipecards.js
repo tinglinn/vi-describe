@@ -41,9 +41,15 @@ export default class extends React.Component {
             cards: [],
             comment: "",
             comments: [],
+            currentCard: 0,
         };
+        this.handleYup = this.handleYup.bind(this);
+        this.handleNope = this.handleNope.bind(this);
+        this.handleSubmitComment = this.handleSubmitComment.bind(this);
     }
 
+
+    
     async fetchData() {
         const {data, error} = await supabase
         .rpc('get_all_images');
@@ -56,20 +62,53 @@ export default class extends React.Component {
     componentDidMount() {
         this.fetchData();
     }
-
-    handleSubmitComment = () => {
-        // this is def not correct, should handle submitting comment logic here
-        // this.setComments([...comments, comment]);
+    getAllComments = async () => {
+        const {data, error} = await supabase
+        .rpc('get_all_comments');
+        console.log("DATA:", data);      
+        console.log(Object.keys(data).length);
+        return Object.keys(data).length;
+    }
+    handleSubmitComment = async() => {
+        //TODO:
+        //FIX cur_image_id
+        //GET TITLE WORKING
+        console.log("REEEE");
+        // new comment ID number       
+        let new_comment_id = await this.getAllComments() + 1;
+        console.log(this.state.currentCard);
+        //updates COMMENTS to store the new comment
+        const { error2 } = await supabase
+        .from('COMMENTS')
+        .insert(
+            {comment_id: new_comment_id, content: this.state.comment, user_id: 1, title: "", image_id: this.state.cards[this.state.currentCard].url}
+        )
+        console.log("COMMENT:", this.state.comment, new_comment_id)
+        console.log("URL:", this.state.cards[this.state.currentCard].url)
+        console.log(error2)
+        // update IMAGE_INFO to contain this comment with corresponding image
+        // const { error3 } = await supabase
+        // .from('IMAGE_INFO')
+        // .update(
+        //     {comment_ids: new_comment_id}
+        // )
+        // .eq('image_id', cur_image_id)
+        
+        
+        // setComments([...comments, comment]);
         // setComment('');
-        // this.setState(() => ({
-        //     comment: ""
-        // }));
     };
 
     handleYup(card) {
+        this.setState(() => ({
+            currentCard: (this.state.currentCard + 1) % this.state.cards.length
+        }))        
         console.log(`Yup for ${card.text}`)
     }
     handleNope(card) {
+        this.setState(() => ({
+            currentCard: (this.state.currentCard + 1) % this.state.cards.length
+        }))
         console.log(`Nope for ${card.text}`)
     }
     handleMaybe(card) {
@@ -106,24 +145,17 @@ export default class extends React.Component {
                                     comment: value
                                 }))
                             }}
-                            placeholder="Name this piece of art"
-                        />
-                        <TextInput
-                            style={styles.input}
-                            value={this.state.comment}
-                            onChangeText={(value) => {
-                                this.setState(() => ({
-                                    comment: value
-                                }))
-                            }}
                             placeholder="Describe this piece of art"
                         />
                         <View style={{width: '100%', alignItems: 'center'}}>
-                            <TouchableOpacity style={styles.button} onPress={() => {
+                            <TouchableOpacity style={styles.button} onPress={async () => {
+                                await this.handleSubmitComment();
                                 this.setState(() => ({
                                     //comments: this.state.comments.push(this.state.comment),
                                     comment: ""
-                                }));
+                                })
+                                );
+                                
                             }}>
                                 <Text style={styles.buttonText}>SUBMIT</Text>
                             </TouchableOpacity>

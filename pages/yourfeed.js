@@ -1,68 +1,115 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { StyleSheet, View, Image, ScrollView, TouchableOpacity, Dimensions, Text, SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Themes from '../assets/themes';
 import { Foundation } from '@expo/vector-icons'; 
+import { supabase } from '../supabase_client';
 
 const { width } = Dimensions.get('window');
 const imageWidth = width / 2.2;
 
+var images = []
+var captions = []
+var headings = []
+var dates = []
+// const images = [
+//    { uri: 'https://media.overstockart.com/optimized/cache/data/product_images/VG485-1000x1000.jpg' },
+//    { uri: 'https://cdn.britannica.com/24/189624-050-F3C5BAA9/Mona-Lisa-oil-wood-panel-Leonardo-da.jpg?w=300&h=169&c=crop' },
+//    { uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjqvavTqoI8X5Fnhhsw1gNtrtPhg-mU5SJAQ&usqp=CAU' },
+//    { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
+//    { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
+//    { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
+//    { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
+//    { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
+//    { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
+//    { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
+// ];
 
-const images = [
-   { uri: 'https://media.overstockart.com/optimized/cache/data/product_images/VG485-1000x1000.jpg' },
-   { uri: 'https://cdn.britannica.com/24/189624-050-F3C5BAA9/Mona-Lisa-oil-wood-panel-Leonardo-da.jpg?w=300&h=169&c=crop' },
-   { uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjqvavTqoI8X5Fnhhsw1gNtrtPhg-mU5SJAQ&usqp=CAU' },
-   { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
-   { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
-   { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
-   { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
-   { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
-   { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
-   { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
-];
+// const captions = [
+//     ["Vincent Van Gogh Painting", "Blue and Yellow Sky", "wave like clouds with a tower", "bruh"],
+//     ["The woman sits markedly upright in a pozzeto armchair with her arms folded, a sign of her reserved posture. Her gaze is fixed on the observer",  "this is u", "this is a", "this is l"],
+//     ["this is b", "this is u", "this is a", "this is l"],
+//     ["this is u",  "this is u", "this is a", "this is l"],
+//     ["this is b", "this is u", "this is a", "this is l"],
+//     ["this is u",  "this is u", "this is a", "this is l"],
+//     ["this is b", "this is u", "this is a", "this is l"],
+//     ["this is u",  "this is u", "this is a", "this is l"],
+//     ["this is b", "this is u", "this is a", "this is l"],
+//     ["this is u",  "this is u", "this is a", "this is l"],
+// ];
 
-const captions = [
-    ["Vincent Van Gogh Painting", "Blue and Yellow Sky", "wave like clouds with a tower", "bruh"],
-    ["The woman sits markedly upright in a pozzeto armchair with her arms folded, a sign of her reserved posture. Her gaze is fixed on the observer",  "this is u", "this is a", "this is l"],
-    ["this is b", "this is u", "this is a", "this is l"],
-    ["this is u",  "this is u", "this is a", "this is l"],
-    ["this is b", "this is u", "this is a", "this is l"],
-    ["this is u",  "this is u", "this is a", "this is l"],
-    ["this is b", "this is u", "this is a", "this is l"],
-    ["this is u",  "this is u", "this is a", "this is l"],
-    ["this is b", "this is u", "this is a", "this is l"],
-    ["this is u",  "this is u", "this is a", "this is l"],
-];
+// const headings = [
+//     "Starry Night",
+//     "Mona Lisa",
+//     "The Louvre",
+//     "Statue of Liberty",
+//     "bulbasaur",
+//     "bulbasaur",
+//     "bulbasaur",
+//     "bulbasaur",
+//     "bulbasaur",
+//     "bulbasaur",
+// ];
 
-const headings = [
-    "Starry Night",
-    "Mona Lisa",
-    "The Louvre",
-    "Statue of Liberty",
-    "bulbasaur",
-    "bulbasaur",
-    "bulbasaur",
-    "bulbasaur",
-    "bulbasaur",
-    "bulbasaur",
-];
+// const dates = [
+//     "  APR 22, 2021",
+//     "  APR 22, 2021",
+//     "  APR 22, 2021",
+//     "  APR 22, 2021",
+//     "  APR 22, 2021",
+//     "  APR 22, 2021",
+//     "  APR 22, 2021",
+//     "  APR 22, 2021",
+//     "  APR 22, 2021",
+//     "  APR 22, 2021",
+// ];
 
-const dates = [
-    "  APR 22, 2021",
-    "  APR 22, 2021",
-    "  APR 22, 2021",
-    "  APR 22, 2021",
-    "  APR 22, 2021",
-    "  APR 22, 2021",
-    "  APR 22, 2021",
-    "  APR 22, 2021",
-    "  APR 22, 2021",
-    "  APR 22, 2021",
-];
+
+
 
 
 function YourFeedScreen({ navigation }) {
+ const all_images = get_all_user_data();
+ const [userData, setUserData] = useState([])
+ const [isMounted, setIsMounted] = useState(false);
+
+ async function get_all_user_data () {
+  const {data, error} = await supabase
+  .rpc('get_all_images_for_user', { username: 'A' });
+  if (data.length !== userData.length) {
+    setUserData(data);
+  }
+  
+}
+
+ useEffect(() => {
+  // if (prevInputRef !== null && userData === prevInputRef) {
+  //   return;
+  // }
+  get_all_user_data();
+  // prevInputRef = userData;
+ }, [userData]
+ )
+ console.log("god DAMMMMMMN:", userData);
+//  var images = []
+//  var captions = []
+//  var headings = []
+//  var dates = []
+ console.log("User data length:", userData.length)
+ images = []
+ captions = []
+ headings = []
+ dates = []
+ for (let i = 0; i < userData.length; i++) {
+
+  images.push(userData[i]["url"]);
+  captions.push(userData[i]['prompt'])
+  headings.push(userData[i]['prompt'])
+  dates.push("yeeee")
+ }
+
+
  const imageRows = [];
  for (let i = 0; i < images.length; i++) {
    const imageRow = (
