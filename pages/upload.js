@@ -49,7 +49,7 @@ export default function ImageUpload () {
         if (image) {
             console.log(image);
             const filename = image.split('/').pop();
-            const fileExtension = filename.split('.').pop();
+            const fileExtension = "png";
             const newFilename = `${Date.now()}.${fileExtension}`;
             console.log(filename, fileExtension, newFilename);
             const file = {
@@ -60,7 +60,7 @@ export default function ImageUpload () {
     
             try {
                 console.log(file);
-                const { data, error } = await supabase.storage.from('images').upload(newFilename, file);
+                const { data, error } = await supabase.storage.from('images').upload(newFilename, file, { expiresIn: 31536000 });
                 
                 if (error) {
                     console.log('Error uploading image:', error.message);
