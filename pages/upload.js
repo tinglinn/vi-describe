@@ -7,11 +7,13 @@ import Themes from '../assets/themes';
 import SubmitButton from '../components/submitButton';
 import { MaterialIcons } from '@expo/vector-icons'; 
 
-export default function ImageUpload () {
+export default function ImageUpload ({navigation, route}) {
     const [image, setImage] = useState(null);
     const [prompt, setPrompt] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [numImages, setNumImages] = useState(0);
+    const { userType } = route.params;
+    //console.log(userType, 'from upload page')
 
     const getAllImages = async () => {
         const {data, error} = await supabase

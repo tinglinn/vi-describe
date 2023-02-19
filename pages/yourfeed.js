@@ -13,7 +13,7 @@ const images = [
    { uri: 'https://media.overstockart.com/optimized/cache/data/product_images/VG485-1000x1000.jpg' },
    { uri: 'https://cdn.britannica.com/24/189624-050-F3C5BAA9/Mona-Lisa-oil-wood-panel-Leonardo-da.jpg?w=300&h=169&c=crop' },
    { uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjqvavTqoI8X5Fnhhsw1gNtrtPhg-mU5SJAQ&usqp=CAU' },
-   { uri: 'https://cdn.britannica.com/71/99571-050-DFF0A6E5/Statue-of-Liberty-Island-New-York.jpg' },
+   { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
    { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
    { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
    { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
@@ -62,9 +62,9 @@ const dates = [
 ];
 
 
-function GalleryScreen({ navigation }) {
+function YourFeedScreen({ navigation }) {
  const imageRows = [];
- for (let i = 0; i < images.length; i += 2) {
+ for (let i = 0; i < images.length; i++) {
    const imageRow = (
     <View key={i} style={styles.imageRow}>
         <TouchableOpacity onPress={() => navigation.navigate('Image', { imageIndex: i })}>
@@ -84,23 +84,6 @@ function GalleryScreen({ navigation }) {
                 </View>
             </View>
         </TouchableOpacity>
-        {i + 1 < images.length && (
-        <TouchableOpacity onPress={() => navigation.navigate('Image', { imageIndex: i + 1 })}>
-            <View style={styles.card}>
-                <View style = {styles.picture}>
-                    <Image source={images[i + 1]} style={styles.image} />
-                </View>
-                <View style = {styles.image_text}>
-                    <Text numberOfLines={1} ellipsizeMode="tail" style={styles.heading}>{headings[i+1]}</Text>
-                    <Text numberOfLines={2} ellipsizeMode="tail" style={styles.imageText}>{captions[i+1][0]}</Text>
-                    <View style={styles.dateBox}>
-                        <Foundation name="clock" size={15} color={Themes.colors.grayblue} />
-                        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.date}>{dates[i+1]}</Text>
-                    </View>
-                </View>
-            </View>
-        </TouchableOpacity>
-        )}
     </View>
    );
    imageRows.push(imageRow);
@@ -109,7 +92,7 @@ function GalleryScreen({ navigation }) {
 
  return (
    <SafeAreaView style={styles.container}>
-    <Text style={styles.gallery}>Gallery</Text>
+    <Text style={styles.gallery}>Your Feed</Text>
      <ScrollView contentContainerStyle={styles.scrollContainer}>
        {imageRows}
      </ScrollView>
@@ -143,16 +126,16 @@ function ImageScreen({ route }) {
 const Stack = createStackNavigator();
 
 
-export default function ExportScreen() {
-  //const { userType } = route.params;
-   return (
-     <NavigationContainer independent={true}>
-       <Stack.Navigator initialRouteName="Gallery">
-         <Stack.Screen name="Gallery" component={GalleryScreen} options={{headerShown: false}}/>
-         <Stack.Screen name="Image" component={ImageScreen} />
-       </Stack.Navigator>
-     </NavigationContainer>
-   );
+export default function FeedScreen ({userType}) {
+    return (
+      <NavigationContainer independent={true}>
+        <Stack.Navigator initialRouteName="YourFeedScreen">
+          <Stack.Screen name="YourFeedScreen " component={YourFeedScreen} options={{headerShown: false}}/>
+          <Stack.Screen name="Image" component={ImageScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+ 
 }
 
 
@@ -183,12 +166,11 @@ const styles = StyleSheet.create({
  },
  imageText: {
     maxWidth: imageWidth,
-    marginLeft: 3,
+    marginLeft: 5,
     marginTop: 7,
     marginBottom: 4,
     color: '#004475',
-    fontSize: 12,
-    fontFamily: 'Poppins',
+    fontSize: 14
   },
   enhancedText: {
     textAlign: 'center',
@@ -196,8 +178,7 @@ const styles = StyleSheet.create({
     color: Themes.colors.black,
     fontWeight: 'bold',
     marginLeft: 10,
-    marginRight: 10,
-    fontFamily: 'Poppins',
+    marginRight: 10
   },
   image_text: {
     // borderRadius: 2,
@@ -216,7 +197,6 @@ const styles = StyleSheet.create({
   heading: {
     marginLeft: 3,
     marginTop: 5,
-    fontFamily: 'Poppins-SemiBold',
     fontWeight: 'bold',
     color: "#004475",
     fontSize: 14
@@ -225,21 +205,19 @@ const styles = StyleSheet.create({
     marginLeft: 3,
     fontWeight: 'bold',
     color: "#6F87A4",
-    fontSize: 10,
-    fontFamily: 'Poppins-SemiBold'
+    fontSize: 10
   },
   gallery: {
     color: "#004475",
-    //fontWeight: 'bold',
+    fontWeight: 'bold',
     fontSize: 22,
-    fontFamily: 'Poppins-SemiBold',
     marginBottom: 15,
     marginTop: 10,
     textAlign: 'center'
   },
   card: {
-    height: 275,
-    width: 170,
+    height: 320,
+    width: 200,
     borderRadius: 15,
     borderWidth: 0.2,
     borderColor: Themes.colors.verydark,
@@ -253,15 +231,9 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   dateBox: {
-    marginLeft: 2, 
+    marginLeft: 5, 
     marginTop: 3, 
     flexDirection: 'row', 
     alignItems: 'center'
   }
 });
-
-
-
-
-
-

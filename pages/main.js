@@ -14,6 +14,8 @@ import UploadScreen from './upload';
 import GalleryScreen from './gallery';
 import NotifsScreen from './notifs';
 import ProfileScreen from './profile';
+import YourFeedScreen from './yourfeed';
+import ExploreScreen from './explore';
 
 /* set up function to toggle between swipe and upload, depending on which kind of user */
 
@@ -22,7 +24,7 @@ const Tab = createBottomTabNavigator();
 export default function BottomTabs({ navigation, route }) {
     const { userType } = route.params;
     var HomeScreen = (userType == "A") ? UploadScreen : SwipeScreen; // toggle based on user type
-    
+    //console.log("main", userType)
     return (
         <Tab.Navigator
             initialRouteName="Home"
@@ -34,13 +36,13 @@ export default function BottomTabs({ navigation, route }) {
                 tabBarLabelStyle: { fontSize: 12, fontFamily: 'Poppins'}
             }}  
         >
-            <Tab.Screen name="Home" component={HomeScreen} options={{
+            <Tab.Screen name="Home" component={HomeScreen} initialParams={{ userType: userType }} options={{
                 tabBarLabel: 'Home',
                 tabBarIcon: ({ color }) => (
                     < MaterialCommunityIcons name="pencil-box-multiple-outline" color={ color } size={ Themes.fonts.iconSize } />
                 ),
             }} />
-            <Tab.Screen name="Gallery" component={GalleryScreen} options={{
+            <Tab.Screen name="Gallery" component={ExploreScreen} initialParams={{ userType: userType }} options={{
                 tabBarLabel: 'Gallery',
                 tabBarIcon: ({ color }) => (
                     < Ionicons name="md-search-sharp" color={color} size={Themes.fonts.iconSize} />
