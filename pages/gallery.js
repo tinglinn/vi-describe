@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Image, ScrollView, TouchableOpacity, Dimensions, Text, SafeAreaView, Pressable } from 'react-native';
+import React, { Component, useState } from 'react';
+import { TextInput, StyleSheet, View, Image, ScrollView, TouchableOpacity, Dimensions, Text, SafeAreaView, Pressable } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Themes from '../assets/themes';
-import { Foundation, MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { Foundation, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons'; 
+import SubmitButton from '../components/submitButton';
 
 const { width } = Dimensions.get('window');
 const imageWidth = width / 2.2;
@@ -132,6 +133,9 @@ function GalleryScreen({ navigation }) {
 
 function ImageScreen({ navigation, route }) {
     const { imageIndex } = route.params;
+    const [describe, setDescribe] = useState(false)
+    const [name, setName] = useState('')
+    const [comment, setComment] = useState('')
     const image = images[imageIndex];
     const commentViews = [];
     for (let i = 0; i < captions[imageIndex].length; i ++) {
@@ -156,12 +160,38 @@ function ImageScreen({ navigation, route }) {
         </Pressable>
 
         <Image source={image} style={{ width: Dimensions.get('window').width * 0.80, aspectRatio: 1, borderRadius: 20 }} />
-        <View style={styles.promptBox}><Text style={styles.prompt}>WHAT PEOPLE SAY ABOUT THIS IMAGE</Text></View>
-        <ScrollView contentContainerStyle={styles.detailsContainer}>
-          {commentViews}
-        </ScrollView>
         
+        {!describe && <View style={{flex: 1}}>
+          <View style={styles.promptBox}><Text style={styles.prompt}>WHAT PEOPLE SAY ABOUT THIS IMAGE</Text></View>
+          <TouchableOpacity onPress={() => setDescribe(true)} style={{ right: 0, bottom: 0, position: 'absolute', zIndex: 2 }}>
+            <Ionicons name="add-circle" size={45} color={Themes.colors.buttonblue} />
+          </TouchableOpacity>
+          
+          <ScrollView >
+            {commentViews}
+          </ScrollView>
+          
+        </View>}
+
+        {describe && <View>
+          <View style={styles.promptBox}><Text style={styles.prompt}>DESCRIBE THIS IMAGE</Text></View>
+          <TextInput
+            style={styles.input}
+            value={name}
+            onChangeText={text => setName(text)}
+            placeholder="Name this piece of art"
+          />
+          <TextInput
+            style={styles.input}
+            value={comment}
+            onChangeText={text => setComment(text)}
+            placeholder="Describe this piece of art"
+          />
+         <SubmitButton childFunction={() => setDescribe(false)} />
+        </View>}
+
       </SafeAreaView>
+      
     );
   }
   

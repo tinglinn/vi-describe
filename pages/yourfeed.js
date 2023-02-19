@@ -5,6 +5,7 @@ import Themes from '../assets/themes';
 import { supabase } from '../supabase_client';
 import { Pressable, StyleSheet, View, Image, ScrollView, TouchableOpacity, Dimensions, Text, SafeAreaView } from 'react-native';
 import { Foundation, MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { supabase } from '../supabase_client';
 
 const { width } = Dimensions.get('window');
 const imageWidth = width / 2.2;
@@ -68,6 +69,12 @@ var dates = []
 
 
 
+
+const get_all_user_data = async () => {
+  const { data, error } = await supabase
+    .rpc('get_all_images_for_user', { username: 'A' });
+  return data;
+}
 
 function YourFeedScreen({ navigation }) {
  const all_images = get_all_user_data();
@@ -135,7 +142,6 @@ function YourFeedScreen({ navigation }) {
    );
    imageRows.push(imageRow);
  }
-
 
  return (
    <SafeAreaView style={styles.container}>

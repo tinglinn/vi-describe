@@ -12,7 +12,8 @@ const colors = {
     lightblue: '#dbedf7',
     gradientblue: '#a4cbed',
     grayblue: '#6F87A4',
-    logoblue: '#1e284d'
+    logoblue: '#1e284d',
+    buttonblue: '#276ABB'
 }
 
 const fonts = {
