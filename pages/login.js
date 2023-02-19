@@ -9,13 +9,13 @@ const LoginType = ({ navigation }) => {
     };
 
     return (
-        <View style={[styles.container, { backgroundColor: Themes.colors.blue }]}>
-            <ImageBackground source={require('../assets/images/login_logo.png')} resizeMode="cover" style={styles.loginImage} />
-            <TouchableOpacity style={styles.button} onPress={() => handleLogin('A')}>
-                <Text style={styles.buttonText}>I need visual assistance</Text>
+        <View style={[styles.container, { backgroundColor: Themes.colors.logoblue }]}>
+            <ImageBackground source={require('../assets/images/login_logo_cole.png')} style={styles.loginImage} />
+            <TouchableOpacity style={[styles.button, {marginTop: 100}]} onPress={() => handleLogin('A')}>
+                <Text style={styles.buttonText}>I need visual assistance  {'>'}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.button, {marginBottom: 50}]} onPress={() => handleLogin('B')}>
-                <Text style={styles.buttonText}>I'd like to volunteer</Text>
+                <Text style={styles.buttonText}>I'd like to volunteer             {'>'}</Text>
             </TouchableOpacity>
         </View>
     );
@@ -134,8 +134,8 @@ const styles = StyleSheet.create({
     },
     loginImage: {
         marginTop: 40,
-        width: '100%',
-        height: '70%',
+        width: 250,
+        height: 200,
     },
     appName: {
         fontFamily: 'Poppins-SemiBold',

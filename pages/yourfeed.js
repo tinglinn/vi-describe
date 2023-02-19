@@ -1,10 +1,10 @@
 import React, { Component, useState, useEffect } from 'react';
-import { StyleSheet, View, Image, ScrollView, TouchableOpacity, Dimensions, Text, SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Themes from '../assets/themes';
-import { Foundation } from '@expo/vector-icons'; 
 import { supabase } from '../supabase_client';
+import { Pressable, StyleSheet, View, Image, ScrollView, TouchableOpacity, Dimensions, Text, SafeAreaView } from 'react-native';
+import { Foundation, MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 const { width } = Dimensions.get('window');
 const imageWidth = width / 2.2;
@@ -139,7 +139,7 @@ function YourFeedScreen({ navigation }) {
 
  return (
    <SafeAreaView style={styles.container}>
-    <Text style={styles.gallery}>Your Feed</Text>
+    {/* <Text style={styles.gallery}>Your Feed</Text> */}
      <ScrollView contentContainerStyle={styles.scrollContainer}>
        {imageRows}
      </ScrollView>
@@ -147,23 +147,37 @@ function YourFeedScreen({ navigation }) {
  );
 }
 
-function ImageScreen({ route }) {
+function ImageScreen({ navigation, route }) {
     const { imageIndex } = route.params;
     const image = images[imageIndex];
     const commentViews = [];
     for (let i = 0; i < captions[imageIndex].length; i ++) {
         const commentView = (
-            <View key={i}>
-                <Text style={styles.enhancedText}> {captions[imageIndex][i]}</Text>
-            </View>
+          <View key={i} style={styles.input}>
+            <Text style={styles.comment}>
+              {captions[imageIndex][i]}
+            </Text>
+          </View>
         );
         commentViews.push(commentView)
     }
   
     return (
-      <SafeAreaView style={styles.container}>
-        <Image source={image} style={styles.singleImage} />
-        {commentViews}
+      <SafeAreaView style={styles.mainBody}>
+        <View style={styles.colorblock}></View>
+        <Pressable style={{ marginTop: 5, marginBottom: 15, marginRight: 300 }} onPress={() => navigation.navigate('YourFeedScreen')}>
+          <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+            <MaterialCommunityIcons name="arrow-left" color={Themes.colors.blue} size={20} />
+            <Text style={{ color: Themes.colors.blue, fontFamily: 'Poppins', fontSize: 15 }}>Back</Text>
+          </View>
+        </Pressable>
+
+        <Image source={image} style={{ width: Dimensions.get('window').width * 0.80, aspectRatio: 1, borderRadius: 20 }} />
+        <View style={styles.promptBox}><Text style={styles.prompt}>WHAT PEOPLE SAY ABOUT THIS IMAGE</Text></View>
+        <ScrollView contentContainerStyle={styles.detailsContainer}>
+          {commentViews}
+        </ScrollView>
+
       </SafeAreaView>
     );
   }
@@ -177,8 +191,8 @@ export default function FeedScreen ({userType}) {
     return (
       <NavigationContainer independent={true}>
         <Stack.Navigator initialRouteName="YourFeedScreen">
-          <Stack.Screen name="YourFeedScreen " component={YourFeedScreen} options={{headerShown: false}}/>
-          <Stack.Screen name="Image" component={ImageScreen} />
+          <Stack.Screen name="YourFeedScreen" component={YourFeedScreen} options={{headerShown: false}}/>
+          <Stack.Screen name="Image" component={ImageScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -187,6 +201,56 @@ export default function FeedScreen ({userType}) {
 
 
 const styles = StyleSheet.create({
+  mainBody: {
+    flex: 1,
+    backgroundColor: '#F7F7F7',
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: 'center'
+  },
+  colorblock: {
+    width: Dimensions.get('window').width,
+    height: 300,
+    backgroundColor: Themes.colors.lightblue,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    margin: 0,
+  },
+  input: {
+    width: Dimensions.get('window').width * 0.80,
+    minHeight: 40,
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: '#6F87A4',
+    borderRadius: 15,
+    marginTop: 5,
+    marginBottom: 10,
+    fontSize: 14,
+    fontFamily: 'Poppins',
+    padding: 10
+  },
+  prompt: {
+    textAlign: 'left',
+    fontFamily: 'Poppins',
+    fontSize: 13,
+    marginTop: 10,
+    marginBottom: 5,
+    color: Themes.colors.darkblue,
+  },
+  promptBox: {
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    width: Dimensions.get('window').width * 0.80,
+    marginTop: 20,
+    marginBotton: 10
+  },
+  comment: {
+    fontSize: 14,
+    marginBottom: 5,
+    fontFamily: 'Poppins',
+    color: Themes.colors.darkblue
+  },
  container: {
    flex: 1,
    backgroundColor: Themes.colors.lightblue,
@@ -268,8 +332,8 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   card: {
-    height: 320,
-    width: 200,
+    height: 385,
+    width: 280,
     borderRadius: 15,
     borderWidth: 0.2,
     borderColor: Themes.colors.verydark,
