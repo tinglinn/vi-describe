@@ -143,8 +143,8 @@ function ImageScreen({ route }) {
 const Stack = createStackNavigator();
 
 
-export default function ExportScreen() {
-  //const { userType } = route.params;
+export default function ExportScreen({userType}) {
+
    return (
      <NavigationContainer independent={true}>
        <Stack.Navigator initialRouteName="Gallery">
@@ -159,7 +159,7 @@ export default function ExportScreen() {
 const styles = StyleSheet.create({
  container: {
    flex: 1,
-   backgroundColor: '#d4f0f7',
+   backgroundColor: Themes.colors.lightblue,
  },
  scrollContainer: {
    flexGrow: 1,
