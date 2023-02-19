@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, ScrollView, TouchableOpacity, Dimensions, Text } from 'react-native';
+import { StyleSheet, View, Image, ScrollView, TouchableOpacity, Dimensions, Text, SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Themes from '../assets/themes';
@@ -9,10 +9,10 @@ const imageWidth = width / 2.2;
 
 
 const images = [
-   { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
-   { uri: 'https://www.pokemoncenter.com/images/DAMRoot/Full-Size/10000/P8556_710-95814_01.jpg' },
-   { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
-   { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
+   { uri: 'https://media.overstockart.com/optimized/cache/data/product_images/VG485-1000x1000.jpg' },
+   { uri: 'https://cdn.britannica.com/24/189624-050-F3C5BAA9/Mona-Lisa-oil-wood-panel-Leonardo-da.jpg?w=300&h=169&c=crop' },
+   { uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjqvavTqoI8X5Fnhhsw1gNtrtPhg-mU5SJAQ&usqp=CAU' },
+   { uri: 'https://cdn.britannica.com/71/99571-050-DFF0A6E5/Statue-of-Liberty-Island-New-York.jpg' },
    { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
    { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
    { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
@@ -22,8 +22,8 @@ const images = [
 ];
 
 const captions = [
-    ["this is a really cool looking pokemon. It is definitely the best pokemon that has ever been made.", "this is u", "this is a", "this is l"],
-    ["this is u",  "this is u", "this is a", "this is l"],
+    ["Vincent Van Gogh Painting", "Blue and Yellow Sky", "wave like clouds with a tower", "bruh"],
+    ["The woman sits markedly upright in a pozzeto armchair with her arms folded, a sign of her reserved posture. Her gaze is fixed on the observer",  "this is u", "this is a", "this is l"],
     ["this is b", "this is u", "this is a", "this is l"],
     ["this is u",  "this is u", "this is a", "this is l"],
     ["this is b", "this is u", "this is a", "this is l"],
@@ -40,13 +40,17 @@ function GalleryScreen({ navigation }) {
    const imageRow = (
     <View key={i} style={styles.imageRow}>
         <TouchableOpacity onPress={() => navigation.navigate('Image', { imageIndex: i })}>
+        <SafeAreaView style = {styles.image_text}>
           <Image source={images[i]} style={styles.image} />
-          <Text numberOfLines={2} ellipsizeMode="tail" style={styles.imageText}>{captions[i][0]}</Text>
+          <Text numberOfLines={1} ellipsizeMode="tail" style={styles.imageText}>{captions[i][0]}</Text>
+        </SafeAreaView>
         </TouchableOpacity>
         {i + 1 < images.length && (
           <TouchableOpacity onPress={() => navigation.navigate('Image', { imageIndex: i + 1 })}>
+          <SafeAreaView style = {styles.image_text}>
             <Image source={images[i + 1]} style={styles.image} />
-            <Text numberOfLines={2} ellipsizeMode="tail" style={styles.imageText}>{captions[i+1][0]}</Text>
+            <Text numberOfLines={1} ellipsizeMode="tail" style={styles.imageText}>{captions[i+1][0]}</Text>
+          </SafeAreaView>
           </TouchableOpacity>
         )}
     </View>
@@ -95,7 +99,7 @@ export default class App extends Component {
    return (
      <NavigationContainer independent={true}>
        <Stack.Navigator initialRouteName="Gallery">
-         <Stack.Screen name="Gallery" component={GalleryScreen} />
+         <Stack.Screen name="Gallery" component={GalleryScreen} options={{headerShown: false}}/>
          <Stack.Screen name="Image" component={ImageScreen} />
        </Stack.Navigator>
      </NavigationContainer>
@@ -117,29 +121,37 @@ const styles = StyleSheet.create({
    flexDirection: 'row',
    justifyContent: 'space-between',
    paddingHorizontal: 10,
+   marginBottom: 10
  },
  image: {
    width: imageWidth,
    height: imageWidth,
-   marginBottom: 10,
-   marginTop: 25
+   marginTop: 5
  },
  singleImage: {
    width: width,
    height: width
  },
  imageText: {
-    alignSelf: 'center',
+    textAlign: 'center',
     marginTop: 5,
     color: Themes.colors.black,
     fontWeight: 'bold',
     maxWidth: imageWidth,
+    marginBottom: 5
   },
   enhancedText: {
-    alignSelf: 'center',
+    textAlign: 'center',
     marginTop: 10,
     color: Themes.colors.black,
     fontWeight: 'bold',
+    marginLeft: 10,
+    marginRight: 10
+  },
+  image_text: {
+    borderRadius: 2,
+    borderWidth: 0.2,
+    borderColor: Themes.colors.verydark,
   }
 });
 
