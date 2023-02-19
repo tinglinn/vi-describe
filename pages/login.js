@@ -134,8 +134,8 @@ const styles = StyleSheet.create({
     },
     loginImage: {
         marginTop: 40,
-        width: 250,
-        height: 200,
+        width: 265,
+        height: 210,
     },
     appName: {
         fontFamily: 'Poppins-SemiBold',
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
         //color: '#ffffff',
         color: '#000000',
         fontSize: 18,
-        fontFamily: 'Poppins-SemiBold'
+        fontFamily: 'Poppins-SemiBold',
     },
     subText: {
         color: '#000000',

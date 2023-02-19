@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Image, ScrollView, TouchableOpacity, Dimensions, Text, SafeAreaView, Pressable } from 'react-native';
+import React, { Component, useState } from 'react';
+import { TextInput, StyleSheet, View, Image, ScrollView, TouchableOpacity, Dimensions, Text, SafeAreaView, Pressable } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Themes from '../assets/themes';
-import { Foundation, MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { Foundation, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons'; 
+import SubmitButton from '../components/submitButton';
 
 const { width } = Dimensions.get('window');
 const imageWidth = width / 2.2;
@@ -12,53 +13,66 @@ const imageWidth = width / 2.2;
 const images = [
    { uri: 'https://media.overstockart.com/optimized/cache/data/product_images/VG485-1000x1000.jpg' },
    { uri: 'https://cdn.britannica.com/24/189624-050-F3C5BAA9/Mona-Lisa-oil-wood-panel-Leonardo-da.jpg?w=300&h=169&c=crop' },
-   { uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjqvavTqoI8X5Fnhhsw1gNtrtPhg-mU5SJAQ&usqp=CAU' },
-   { uri: 'https://cdn.britannica.com/71/99571-050-DFF0A6E5/Statue-of-Liberty-Island-New-York.jpg' },
-   { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
-   { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
-   { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
-   { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
-   { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
-   { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
+   { uri: 'https://bloomandgrow.in/wp-content/uploads/2020/09/drawing-1-686x500.jpeg' },
+   { uri: 'https://blog.artsper.com/wp-content/uploads/2019/06/Banksy.jpg' },
+   { uri: 'http://lh3.googleusercontent.com/J0sw0IiqP2F4gavYnI-vUa5IBgHiHy42lohgm-qq1vuygUX0HQgylVSV1ZdDTV5XIg=s1200' },
+   { uri: 'https://johngaber.files.wordpress.com/2017/10/the-great-wave-off-kanagawa.jpg' },
+   { uri: 'https://www.sketchappsources.com/resources/source-image/nyan-cat-artoctober.png' },
+   { uri: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSirEwnyuWzyX6bdRdT0-u5Zr0UdOGqSdwn5wDI58gqOx9m9Db8' },
+   { uri: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQIFTVGpoKDjwNh2bcSVrxy8D80MvqTtfI8m9REtL9MvWiLhNPG' },
+   { uri: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQL2H1L5W9QsCTkHFD0SpBfFeG7c96gU-yedkUaT_atKYScAfCr' },
 ];
 
 const captions = [
-    ["Vincent Van Gogh Painting", "Blue and Yellow Sky", "wave like clouds with a tower", "bruh"],
-    ["The woman sits markedly upright in a pozzeto armchair with her arms folded, a sign of her reserved posture. Her gaze is fixed on the observer",  "this is u", "this is a", "this is l"],
-    ["this is b", "this is u", "this is a", "this is l"],
-    ["this is u",  "this is u", "this is a", "this is l"],
-    ["this is b", "this is u", "this is a", "this is l"],
-    ["this is u",  "this is u", "this is a", "this is l"],
-    ["this is b", "this is u", "this is a", "this is l"],
-    ["this is u",  "this is u", "this is a", "this is l"],
-    ["this is b", "this is u", "this is a", "this is l"],
-    ["this is u",  "this is u", "this is a", "this is l"],
+    ["A dark, tranquil night sky with bright stars, a crescent moon, and swirling clouds. The stars are large and prominent, shining brightly against the deep blue sky. The town below is small and quiet, with only a few buildings and trees visible.", 
+     "A dreamy night sky filled with stars, planets, and galaxies. The painting features a towering cypress tree that reaches towards the heavens and a sleepy village nestled beneath it. The sky is filled with swirling clouds that seem to dance around the bright stars, while a crescent moon glows in the distance.",
+     "A European village amidst a dark wilderness, complete with dampened lights. Some buildings manage to emit just enough light to be noticed, but others, including, notably, the church, are dark and unwelcoming. However, the real action is what is going on above the town, where the moon and stars light up the sky. Light moves across the sky in great sweeps and strokes, defeating the dark sky wherever it is encountered.", 
+     "The lower third of the painting comprises a starlit village landscape dominated by a white church. Twelve oversized stars, more like planets dot the upper left two thirds of the painting. The stars are surrounded with halos that suggest the blurriness of fog. The upper right of the sky is dominated by an enormous bright crescent moon and the entire left third from bottom to almost the top by a dark and imposing cypress. From left to right a curlicue of cloud splits the sky.",
+     ],
+    ["The woman sits markedly upright in a pozzeto armchair with her arms folded, a sign of her reserved posture. Her gaze is fixed on the observer",  
+    "A seated woman with a gentle smile. She wears a colorful dress and a veil on her hair, and sits against a plain background. The woman's eyes appear to follow the viewer, and her expression is enigmatic and subtle. Her hands rest on the arm of a chair, and she holds a folded cloth. ", 
+    "Features a woman with a serene expression and gentle smile. She has dark hair that is pulled back, and is dressed in a flowing gown with delicate folds. The painting is set against a plain background, and the woman appears to be sitting in front of a landscape. Her hands are delicately folded, and she holds a small object that is difficult to discern.", 
+    "Depicts a woman seated against a landscape. The woman is dressed in an intricate dress with a veil covering her hair. Her gaze is directed towards the viewer, and her smile is enigmatic and alluring. Her hands rest on the arm of a chair, and she holds a folded object that has been the subject of much speculation."],
+    ["A gray bodied dolphin with a yellow underbelly leaps out of the water. The water around the dolphin creates a splash as the dolphin jumps up. The dolphin has a small smile on its face, looking as if it is having fun.", 
+    "A dolphin in the shape of a crescent moon jumps out of th water, high into the sky, where there are some clouds and a bright, yellow sun."],
+    ["A girl reaching out towards a red heart-shaped balloon. The image is stenciled in black and white, with the balloon depicted in bright red.",  
+    "Depicts a young girl reaching out for a heart-shaped balloon. The painting is simple and iconic, with a muted color palette and stark contrast between the girl and the balloon."],
+    ["It shows a young woman with a pearl earring, looking over her shoulder. She wears a yellow garment, and the background is dark.", 
+     "Portrays a young woman wearing a blue and gold turban and a large pearl earring.", 
+     "It features a young woman with a pearl earring and a blue and gold turban. She looks over her shoulder with a serene expression and is set against a dark background."],
+    ["Depicts a large wave rising above boats and fishermen in the sea. The wave is depicted with a dynamic and powerful force, while Mount Fuji stands tall in the background. The boats and fishermen are dwarfed by the wave, conveying a sense of the power of nature.",
+      "It shows a huge wave with boats and fishermen, and Mount Fuji in the background."],
+    ["Pixelated cat with a Pop-Tart body and a rainbow trail flying through space. The image is animated, and the cat leaves a trail of sparkles as it flies.", 
+    "A cat with a Pop-Tart for a body, flying through space with a rainbow trail behind it. The cat has a cute, playful expression.", ],
+    ["A man in a suit and bowler hat, with an apple obscuring his face. The background is a clear blue sky with clouds."],
+    ["A painting by Vincent van Gogh that portrays the artist without his signature beard, with a serious expression and intense gaze. The painting is rendered in bold, expressive brushstrokes, with a dark background that creates a sense of depth and texture."],
+    ["Napoleon Bonaparte riding a rearing horse, with an army in the background crossing the snow-covered Alps. The painting is dramatic and grandiose, with a sense of power and strength conveyed through Napoleon's posture and the rugged landscape."],
 ];
 
 const headings = [
     "Starry Night",
     "Mona Lisa",
-    "The Louvre",
-    "Statue of Liberty",
-    "bulbasaur",
-    "bulbasaur",
-    "bulbasaur",
-    "bulbasaur",
-    "bulbasaur",
-    "bulbasaur",
+    "My Daughter's Drawing",
+    "Banksy Balloon",
+    "Girl with Pearl Earring",
+    "The Great Wave",
+    "Nyan Cat",
+    "The Son of Man",
+    "Van Gogh Self Portrait",
+    "Napolean",
 ];
 
 const dates = [
-    "  APR 22, 2021",
-    "  APR 22, 2021",
-    "  APR 22, 2021",
-    "  APR 22, 2021",
-    "  APR 22, 2021",
-    "  APR 22, 2021",
-    "  APR 22, 2021",
-    "  APR 22, 2021",
-    "  APR 22, 2021",
-    "  APR 22, 2021",
+    "  FEB 03, 2023",
+    "  OCT 22, 2022",
+    "  JUL 16, 2022",
+    "  JUN 26, 2022",
+    "  JAN 02, 2023",
+    "  MAR 19, 2022",
+    "  FEB 27, 2022",
+    "  NOV 05, 2022",
+    "  JAN 22, 2023",
+    "  APR 24, 2022",
 ];
 
 
@@ -132,6 +146,9 @@ function GalleryScreen({ navigation }) {
 
 function ImageScreen({ navigation, route }) {
     const { imageIndex } = route.params;
+    const [describe, setDescribe] = useState(false)
+    const [name, setName] = useState('')
+    const [comment, setComment] = useState('')
     const image = images[imageIndex];
     const commentViews = [];
     for (let i = 0; i < captions[imageIndex].length; i ++) {
@@ -156,12 +173,38 @@ function ImageScreen({ navigation, route }) {
         </Pressable>
 
         <Image source={image} style={{ width: Dimensions.get('window').width * 0.80, aspectRatio: 1, borderRadius: 20 }} />
-        <View style={styles.promptBox}><Text style={styles.prompt}>WHAT PEOPLE SAY ABOUT THIS IMAGE</Text></View>
-        <ScrollView contentContainerStyle={styles.detailsContainer}>
-          {commentViews}
-        </ScrollView>
         
+        {!describe && <View style={{flex: 1}}>
+          <View style={styles.promptBox}><Text style={styles.prompt}>WHAT PEOPLE SAY ABOUT THIS IMAGE</Text></View>
+          <TouchableOpacity onPress={() => setDescribe(true)} style={{ right: 0, bottom: 0, position: 'absolute', zIndex: 2 }}>
+            <Ionicons name="add-circle" size={45} color={Themes.colors.buttonblue} />
+          </TouchableOpacity>
+          
+          <ScrollView >
+            {commentViews}
+          </ScrollView>
+          
+        </View>}
+
+        {describe && <View>
+          <View style={styles.promptBox}><Text style={styles.prompt}>DESCRIBE THIS IMAGE</Text></View>
+          <TextInput
+            style={styles.input}
+            value={name}
+            onChangeText={text => setName(text)}
+            placeholder="Name this image"
+          />
+          <TextInput
+            style={styles.input}
+            value={comment}
+            onChangeText={text => setComment(text)}
+            placeholder="Describe this image"
+          />
+         <SubmitButton childFunction={() => setDescribe(false)} />
+        </View>}
+
       </SafeAreaView>
+      
     );
   }
   

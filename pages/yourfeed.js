@@ -69,6 +69,12 @@ const captions = [
 
 
 
+const get_all_user_data = async () => {
+  const { data, error } = await supabase
+    .rpc('get_all_images_for_user', { username: 'A' });
+  return data;
+}
+
 function YourFeedScreen({ navigation }) {
  const all_images = get_all_user_data();
  const [userData, setUserData] = useState([])
@@ -142,7 +148,6 @@ function YourFeedScreen({ navigation }) {
    );
    imageRows.push(imageRow);
  }
-
 
  return (
    <SafeAreaView style={styles.container}>
