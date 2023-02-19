@@ -15,8 +15,27 @@ export default function Card ({ navigation })  {
         setShowDetails(true);
     };
 
-    const handleSubmitComment = () => {
+    const handleSubmitComment = async () => {
         // this is def not correct, should handle submitting comment logic here
+        const {data1, error1} = await supabase
+        .rpc('get_last_comment');
+        let new_comment_id = data1[0]['comment_id'] + 1;
+
+        //updates COMMENTS to store the new comment
+        const { data2, error2 } = await supabase
+        .from('COMMENTS_LIST')
+        .insert(
+            {comment_id: new_comment_id, content: comment}
+        )
+        
+        // update IMAGE_INFO to contain this comment with corresponding image
+        const { data3, error3 } = await supabase
+        .from('IMAGE_INFO')
+        .update(
+            {comment_ids: JSON.stringify(new_comment_id)}
+        )
+        
+        
         setComments([...comments, comment]);
         setComment('');
     };
@@ -34,6 +53,13 @@ export default function Card ({ navigation })  {
     const getLatestImage = async () => {
         const {data, error} = await supabase
         .rpc('get_most_recent_image');
+        
+        console.log(data, error)
+    }
+
+    const getAllImages = async () => {
+        const {data, error} = await supabase
+        .rpc('get_all_images');
         
         console.log(data, error)
     }
