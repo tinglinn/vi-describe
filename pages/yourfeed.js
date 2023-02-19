@@ -5,7 +5,6 @@ import Themes from '../assets/themes';
 import { supabase } from '../supabase_client';
 import { Pressable, StyleSheet, View, Image, ScrollView, TouchableOpacity, Dimensions, Text, SafeAreaView } from 'react-native';
 import { Foundation, MaterialCommunityIcons } from '@expo/vector-icons'; 
-import { supabase } from '../supabase_client';
 
 const { width } = Dimensions.get('window');
 const imageWidth = width / 2.2;
