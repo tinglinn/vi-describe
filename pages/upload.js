@@ -12,8 +12,8 @@ export default function ImageUpload ({navigation, route}) {
     const [prompt, setPrompt] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [numImages, setNumImages] = useState(0);
-    const { userType } = route.params;
-    //console.log(userType, 'from upload page')
+    const { userType, email } = route.params;
+    console.log(email, userType, 'from upload page')
 
     const getAllImages = async () => {
         const {data, error} = await supabase
@@ -31,7 +31,7 @@ export default function ImageUpload ({navigation, route}) {
         prefix = "https://cburolnykagrisqerphu.supabase.co/storage/v1/object/public/images/"
         const { error } = await supabase
         .from('IMAGE_INFO')
-        .insert({image_id: numImages + 1, image_name: bahee.substring(0, bahee.length - 4), url: prefix + bahee.substring(0, bahee.length - 4) + ".png", comment_ids: [], resolved: false, prompt: prompt});
+        .insert({email: email, image_id: numImages + 1, image_name: bahee.substring(0, bahee.length - 4), url: prefix + bahee.substring(0, bahee.length - 4) + ".png", comment_ids: [], resolved: false, prompt: prompt});
     }
 
       const pickImage = async () => {

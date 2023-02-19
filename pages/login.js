@@ -47,7 +47,7 @@ const Login = ({ navigation, route }) => {
                 setCorrectPassword(false)
             }
             else {
-                navigation.navigate("Main", { userType });
+                navigation.navigate("Main", { userType, email });
             }
         }
         else {
@@ -57,7 +57,7 @@ const Login = ({ navigation, route }) => {
                 {username: email, password: password, usertype: userType, user_id: 1}
             )
             console.log(`Email: ${email}, Password: ${password}, User Type: ${userType}`);
-            navigation.navigate("Main", { userType });
+            navigation.navigate("Main", { userType, email });
 
         }
     };

@@ -22,7 +22,8 @@ import ExploreScreen from './explore';
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabs({ navigation, route }) {
-    const { userType } = route.params;
+    const { userType, email } = route.params;
+    console.log("EMAIL PASS TO MAIN:", email)
     var HomeScreen = (userType == "A") ? UploadScreen : SwipeScreen; // toggle based on user type
     //console.log("main", userType)
     return (
@@ -36,13 +37,13 @@ export default function BottomTabs({ navigation, route }) {
                 tabBarLabelStyle: { fontSize: 12, fontFamily: 'Poppins'}
             }}  
         >
-            <Tab.Screen name="Home" component={HomeScreen} initialParams={{ userType: userType }} options={{
+            <Tab.Screen name="Home" component={HomeScreen} initialParams={{ userType: userType, email: email  }} options={{
                 tabBarLabel: 'Home',
                 tabBarIcon: ({ color }) => (
                     < MaterialCommunityIcons name="pencil-box-multiple-outline" color={ color } size={ Themes.fonts.iconSize } />
                 ),
             }} />
-            <Tab.Screen name="Gallery" component={ExploreScreen} initialParams={{ userType: userType }} options={{
+            <Tab.Screen name="Gallery" component={ExploreScreen} initialParams={{ userType: userType, email: email }} options={{
                 tabBarLabel: 'Gallery',
                 tabBarIcon: ({ color }) => (
                     < Ionicons name="md-search-sharp" color={color} size={Themes.fonts.iconSize} />
