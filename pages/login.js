@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
+import { LinearGradient, View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
 import { supabase } from '../supabase_client'
 import Themes from '../assets/themes';
-
 
 const LoginType = ({ navigation }) => {
     const handleLogin = (userType) => {
@@ -85,12 +84,7 @@ const Login = ({ navigation, route }) => {
                     secureTextEntry
                     />
                 <View style={{ width: '100%', alignItems: 'center' }}>
-                    <TouchableOpacity style={styles.submitButton} onPress={() => {
-                        this.setState(() => ({
-                            //comments: this.state.comments.push(this.state.comment),
-                            comment: ""
-                        }));
-                    }}>
+                    <TouchableOpacity style={styles.submitButton} onPress={handleLogin}>
                         <Text style={styles.submitButtonText}>SUBMIT</Text>
                     </TouchableOpacity>
                 </View>
