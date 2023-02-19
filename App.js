@@ -16,7 +16,7 @@ function LoginStacks() {
     <Stack.Navigator screenOptions={{ headerShown: false }} >
       <Stack.Screen name="LoginType" component={LoginType} />
       <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="Main" component={MainScreen} />
+      <Stack.Screen name="Main" component={MainScreen}  />
     </Stack.Navigator>
   )
 }

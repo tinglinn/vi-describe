@@ -3,8 +3,16 @@ TreeHacks 2023
 
 
 TODO:
-- change storing password in USERS_LIST table: store the hash of the password along with a randomly generated key. 
-- style the gallery page
+in upload:
+- Fix image upload
+
+
+in swipe:
+-create a var that stores what the current image is
+-
+
+
+
 
 SUPABASE:
 SQL TABLES:

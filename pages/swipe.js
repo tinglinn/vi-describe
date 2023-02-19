@@ -6,7 +6,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Swipecards from '../components/swipecards';
 
 
-
 export default function Card ({ navigation })  {
     const [showDetails, setShowDetails] = useState(false);
     const [comment, setComment] = useState('');
@@ -82,7 +81,7 @@ export default function Card ({ navigation })  {
     //     .select(row=0)
     // }
 
-    var Screen = <View>
+    var Screen = <View style={{ backgroundColor: 'red'}}>
             <Swipecards />
         </View>
     return (
@@ -95,8 +94,7 @@ export default function Card ({ navigation })  {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        color: Themes.colors.black
+        alignItems: 'flex-start',
+        justifyContent: 'space-between',
     },
 });

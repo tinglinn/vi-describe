@@ -9,7 +9,7 @@ import { useFonts } from 'expo-font';
 import Themes from '../assets/themes/index';
 
 /* import screens */
-import SwipeScreen from './swipe';
+import SwipeScreen from '../components/swipecards';
 import UploadScreen from './upload';
 import GalleryScreen from './gallery';
 import NotifsScreen from './notifs';
