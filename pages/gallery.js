@@ -109,7 +109,7 @@ function GalleryScreen({ navigation }) {
 
  return (
    <SafeAreaView style={styles.container}>
-    <Text style={styles.gallery}>Gallery</Text>
+    {/* <Text style={styles.gallery}>Gallery</Text> */}
      <ScrollView contentContainerStyle={styles.scrollContainer}>
        {imageRows}
      </ScrollView>

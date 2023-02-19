@@ -92,7 +92,7 @@ function YourFeedScreen({ navigation }) {
 
  return (
    <SafeAreaView style={styles.container}>
-    <Text style={styles.gallery}>Your Feed</Text>
+    {/* <Text style={styles.gallery}>Your Feed</Text> */}
      <ScrollView contentContainerStyle={styles.scrollContainer}>
        {imageRows}
      </ScrollView>
