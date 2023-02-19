@@ -12,52 +12,51 @@ export default function ImageUpload () {
         apiKey: "public_kW15b5DCGeXqW1ZyeN5JnPMx886t" // Your real API key.
       });
 
-    const pickImage = async () => {
+      const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: true,
-            aspect: [4, 3],
-            base64: true,
-            quality: 1,
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
         });
-        if (!result.canceled) {
-            console.log("Going");
-            setImage(result.uri);
-            const blob = await result.blob();
-            let selectedImage = new File([blob], "image1");
-            console.log("Selected image");
-
-            const { fileUrl, filePath } = await upload.uploadFile(
-                // Required.
-                selectedImage);
-            console.log("IMAGE:", selectedImage);
-            console.log("FILE:", fileUrl, filePath);
-            const { data, error } = await supabase
-            .storage
-            .from('images')
-            // update so that each image gets a different filepath
-            .upload("image1.png", selectedImage)
-            //get image URL from supabase bucket
-            console.log("ERROR 0:", data, error);
-            const { data1, error1 } = supabase
-                .storage
-                .from('images')
-                // again, update
-                .getPublicUrl('image1')
-        
-            console.log(error1);
-            let image_url = data1[0];
-            const { data2, error2 } = await supabase
-                .from('IMAGE_INFO')
-                .insert(
-                    {image_id: 3, image_name: "placeholder", url: image_url, comment_ids: "", resolved: false, prompt: prompt}
-            )
-            console.log(error2);
     
+        if (!result.canceled) {
+          setImage(result.assets[0].uri);
+        }
+      };
+    
+      const uploadImage = async () => {
+        if (image) {
+            console.log(image);
+            const filename = image.split('/').pop();
+            const fileExtension = filename.split('.').pop();
+            const newFilename = `${Date.now()}.${fileExtension}`;
+            console.log(filename, fileExtension, newFilename);
+            const file = {
+            uri: image,
+            name: newFilename,
+            type: `image/${fileExtension}`,
+            };
+    
+            try {
+                console.log(file);
+                const { data, error } = await supabase.storage.from('images').upload(newFilename, file);
+
+                if (error) {
+                    console.log('Error uploading image:', error.message);
+                } else {
+                    const imageUrl = data.path;
+                    console.log('Image uploaded successfully:', imageUrl, prompt);
+                }
+            } catch (error) {
+                console.log('Error uploading image:', error.message);
+            }
         }
     };
+    
 
     function onSubmit() {
+        uploadImage();
         Alert.alert("Successfully posted!");
         setImage(null);
         setPrompt(null);
