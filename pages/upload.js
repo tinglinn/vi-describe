@@ -57,6 +57,11 @@ export default function ImageUpload () {
         }
     };
 
+    function onSubmit() {
+        Alert.alert("Successfully posted!");
+        setImage(null);
+        setPrompt(null);
+    }
 
     return (
         <View style={styles.container}>
@@ -83,7 +88,7 @@ export default function ImageUpload () {
                     maxLength={100}
                     />
             </View>
-            <TouchableOpacity onPress={() => Alert.alert("Successfully posted!")}>
+            <TouchableOpacity onPress={onSubmit}>
                 <View style={{ borderRadius: 5, marginTop: 20, width: 80, height: 40, backgroundColor: '#be3577', justifyContent: 'center', alignItems: 'center'}}>
                     <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14, color: 'white'}}>Submit</Text>
                 </View>
