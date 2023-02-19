@@ -3,6 +3,7 @@ import { StyleSheet, View, Image, ScrollView, TouchableOpacity, Dimensions, Text
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Themes from '../assets/themes';
+import { Foundation } from '@expo/vector-icons'; 
 
 const { width } = Dimensions.get('window');
 const imageWidth = width / 2.2;
@@ -34,24 +35,71 @@ const captions = [
     ["this is u",  "this is u", "this is a", "this is l"],
 ];
 
+const headings = [
+    "Starry Night",
+    "Mona Lisa",
+    "The Louvre",
+    "Statue of Liberty",
+    "bulbasaur",
+    "bulbasaur",
+    "bulbasaur",
+    "bulbasaur",
+    "bulbasaur",
+    "bulbasaur",
+];
+
+const dates = [
+    "  APR 22, 2021",
+    "  APR 22, 2021",
+    "  APR 22, 2021",
+    "  APR 22, 2021",
+    "  APR 22, 2021",
+    "  APR 22, 2021",
+    "  APR 22, 2021",
+    "  APR 22, 2021",
+    "  APR 22, 2021",
+    "  APR 22, 2021",
+];
+
+
 function GalleryScreen({ navigation }) {
  const imageRows = [];
  for (let i = 0; i < images.length; i += 2) {
    const imageRow = (
     <View key={i} style={styles.imageRow}>
         <TouchableOpacity onPress={() => navigation.navigate('Image', { imageIndex: i })}>
-        <SafeAreaView style = {styles.image_text}>
-          <Image source={images[i]} style={styles.image} />
-          <Text numberOfLines={1} ellipsizeMode="tail" style={styles.imageText}>{captions[i][0]}</Text>
-        </SafeAreaView>
+            <View style={styles.card}>
+                <View style = {styles.picture}>
+                    <Image source={images[i]} style={styles.image} />
+                </View>
+                <View style = {styles.image_text}>
+                    <View style={{width: '100%'}}>
+                        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.heading}>{headings[i]}</Text>
+                        <Text numberOfLines={2} ellipsizeMode="tail" style={styles.imageText}>{captions[i][0]}</Text>
+                        <View style={styles.dateBox}>
+                        <Foundation name="clock" size={15} color={Themes.colors.grayblue} />
+                        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.date}>{dates[i]}</Text>
+                        </View>
+                    </View>
+                </View>
+            </View>
         </TouchableOpacity>
         {i + 1 < images.length && (
-          <TouchableOpacity onPress={() => navigation.navigate('Image', { imageIndex: i + 1 })}>
-          <SafeAreaView style = {styles.image_text}>
-            <Image source={images[i + 1]} style={styles.image} />
-            <Text numberOfLines={1} ellipsizeMode="tail" style={styles.imageText}>{captions[i+1][0]}</Text>
-          </SafeAreaView>
-          </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Image', { imageIndex: i + 1 })}>
+            <View style={styles.card}>
+                <View style = {styles.picture}>
+                    <Image source={images[i + 1]} style={styles.image} />
+                </View>
+                <View style = {styles.image_text}>
+                    <Text numberOfLines={1} ellipsizeMode="tail" style={styles.heading}>{headings[i+1]}</Text>
+                    <Text numberOfLines={2} ellipsizeMode="tail" style={styles.imageText}>{captions[i+1][0]}</Text>
+                    <View style={styles.dateBox}>
+                        <Foundation name="clock" size={15} color={Themes.colors.grayblue} />
+                        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.date}>{dates[i+1]}</Text>
+                    </View>
+                </View>
+            </View>
+        </TouchableOpacity>
         )}
     </View>
    );
@@ -60,11 +108,12 @@ function GalleryScreen({ navigation }) {
 
 
  return (
-   <View style={styles.container}>
+   <SafeAreaView style={styles.container}>
+    <Text style={styles.gallery}>Gallery</Text>
      <ScrollView contentContainerStyle={styles.scrollContainer}>
        {imageRows}
      </ScrollView>
-   </View>
+   </SafeAreaView>
  );
 }
 
@@ -82,10 +131,10 @@ function ImageScreen({ route }) {
     }
   
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Image source={image} style={styles.singleImage} />
         {commentViews}
-      </View>
+      </SafeAreaView>
     );
   }
   
@@ -111,6 +160,7 @@ export default class App extends Component {
 const styles = StyleSheet.create({
  container: {
    flex: 1,
+   backgroundColor: '#d4f0f7',
  },
  scrollContainer: {
    flexGrow: 1,
@@ -119,26 +169,26 @@ const styles = StyleSheet.create({
  },
  imageRow: {
    flexDirection: 'row',
-   justifyContent: 'space-between',
-   paddingHorizontal: 10,
-   marginBottom: 10
+   justifyContent: 'center',
+   marginBottom: 20,
  },
  image: {
-   width: imageWidth,
-   height: imageWidth,
-   marginTop: 5
+   width: '100%',
+   aspectRatio: 1,
+   // overflow: 'hidden'
+   //height: imageWidth,
  },
  singleImage: {
    width: width,
    height: width
  },
  imageText: {
-    textAlign: 'center',
-    marginTop: 5,
-    color: Themes.colors.black,
-    fontWeight: 'bold',
     maxWidth: imageWidth,
-    marginBottom: 5
+    marginLeft: 5,
+    marginTop: 7,
+    marginBottom: 4,
+    color: '#004475',
+    fontSize: 14
   },
   enhancedText: {
     textAlign: 'center',
@@ -149,9 +199,60 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   image_text: {
-    borderRadius: 2,
+    // borderRadius: 2,
+    // borderWidth: 0.2,
+    // borderColor: Themes.colors.verydark,
+    backgroundColor: '#FFFFFF',
+    // shadowColor: '#171717',
+    // shadowOffset: {width: -2, height: 4},
+    // shadowOpacity: 0.2,
+    // shadowRadius: 3,
+    padding: 10,
+  },
+  picture: {
+    width: '100%'
+  },
+  heading: {
+    marginLeft: 3,
+    marginTop: 5,
+    fontWeight: 'bold',
+    color: "#004475",
+    fontSize: 14
+  },
+  date: {
+    marginLeft: 3,
+    fontWeight: 'bold',
+    color: "#6F87A4",
+    fontSize: 10
+  },
+  gallery: {
+    color: "#004475",
+    fontWeight: 'bold',
+    fontSize: 22,
+    marginBottom: 15,
+    marginTop: 10,
+    textAlign: 'center'
+  },
+  card: {
+    height: 270,
+    width: 170,
+    borderRadius: 15,
     borderWidth: 0.2,
     borderColor: Themes.colors.verydark,
+    backgroundColor: '#FFFFFF',
+    // shadowColor: '#171717',
+    // shadowOffset: {width: -2, height: 4},
+    // shadowOpacity: 0.2,
+    // shadowRadius: 3,ß
+    overflow: 'hidden',
+    marginLeft: 10,
+    marginRight: 10
+  },
+  dateBox: {
+    marginLeft: 5, 
+    marginTop: 3, 
+    flexDirection: 'row', 
+    alignItems: 'center'
   }
 });
 
