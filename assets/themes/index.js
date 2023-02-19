@@ -7,6 +7,7 @@ const colors = {
     lightgreen: '#BFE4D0',
     blue: '#4c80fe',
     pink: '#EBD5E4',
+    black: '#000001',
 }
 
 const fonts = {
