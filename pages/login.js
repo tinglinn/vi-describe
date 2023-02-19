@@ -10,7 +10,7 @@ const LoginType = ({ navigation }) => {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: Themes.colors.blue }]}>
             <ImageBackground source={require('../assets/images/login_logo.png')} resizeMode="cover" style={styles.loginImage} />
             <TouchableOpacity style={styles.button} onPress={() => handleLogin('A')}>
                 <Text style={styles.buttonText}>I need visual assistance</Text>
@@ -64,10 +64,10 @@ const Login = ({ navigation, route }) => {
     };
     var emailUsedAlert = (emailUsed && !correctPassword) ? <Text style={styles.userAlreadyCreatedText}> Email already in use but password incorrect!</Text> : null;
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, {backgroundColor: Themes.colors.lightblue}]}>
             <View style={styles.infoContainer}>
                 <Text style={styles.title}>Login</Text>
-                <Text style={styles.label}>Email</Text>
+                <Text style={styles.label}>EMAIL</Text>
                 <TextInput
                     style={styles.input}
                     value={email}
@@ -76,7 +76,7 @@ const Login = ({ navigation, route }) => {
                     keyboardType="email-address"
                 />
                 {emailUsedAlert}
-                <Text style={styles.label}>Password</Text>
+                <Text style={styles.label}>PASSWORD</Text>
                 <TextInput
                     style={styles.input}
                     value={password}
@@ -84,7 +84,16 @@ const Login = ({ navigation, route }) => {
                     placeholder="Enter password"
                     secureTextEntry
                     />
-                <Button title="Login" onPress={handleLogin} />
+                <View style={{ width: '100%', alignItems: 'center' }}>
+                    <TouchableOpacity style={styles.submitButton} onPress={() => {
+                        this.setState(() => ({
+                            //comments: this.state.comments.push(this.state.comment),
+                            comment: ""
+                        }));
+                    }}>
+                        <Text style={styles.submitButtonText}>SUBMIT</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     );
@@ -95,11 +104,11 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: 20,
-        backgroundColor: '#4c80fe'
+        paddingHorizontal: 5,
+        //backgroundColor: Themes.colors.lightblue,
     },
     infoContainer: {
-        backgroundColor: Themes.colors.white,
+        //backgroundColor: Themes.colors.white,
         width: '100%',
         padding: 20,
         borderRadius: 5,
@@ -107,22 +116,25 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily: "Poppins-SemiBold",
+        color: Themes.colors.darkblue,
         fontSize: 24,
-        marginBottom: 20,
+        marginBottom: 10,
     },
     label: {
         fontFamily: "Poppins",
-        fontSize: 16,
+        color: Themes.colors.darkblue,
+        fontSize: 12,
         marginTop: 20,
         alignSelf: 'flex-start',
     },
     input: {
         width: '100%',
-        height: 40,
-        borderColor: '#cfcfcf',
+        height: 50,
+        borderColor: Themes.colors.grayblue,
         borderWidth: 1,
-        borderRadius: 5,
+        borderRadius: 15,
         padding: 10,
+        marginTop: 10,
         marginBottom: 20,
         backgroundColor: 'whitesmoke'
     },
@@ -140,6 +152,23 @@ const styles = StyleSheet.create({
         fontFamily: 'Poppins-SemiBold',
         fontSize: 24,
         color: Themes.colors.white
+    },
+    submitButton: {
+        width: 140,
+        height: 40,
+        backgroundColor: '#276ABB',
+        //padding: 10,
+        borderRadius: 50,
+        marginBottom: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 15,
+        marginBottom: 20
+    },
+    submitButtonText: {
+        fontFamily: "Poppins-SemiBold",
+        color: 'white',
+        fontSize: 14
     },
     button: {
         width: '80%',

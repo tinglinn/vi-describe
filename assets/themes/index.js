@@ -9,6 +9,8 @@ const colors = {
     pink: '#EBD5E4',
     black: '#000001',
     darkblue: '#004475',
+    lightblue: '#c6e2ff',
+    grayblue: '#6F87A4'
 }
 
 const fonts = {
