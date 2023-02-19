@@ -53,7 +53,7 @@ const headings = [
     "Starry Night",
     "Mona Lisa",
     "My Daughter's Drawing",
-    "Chinatown Mural",
+    "Banksy Balloon",
     "Girl with Pearl Earring",
     "The Great Wave",
     "Nyan Cat",
