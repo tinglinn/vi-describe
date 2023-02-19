@@ -17,12 +17,12 @@ export default function ExplorePage ({navigation, route}) {
     return (
         <SafeAreaView style={styles.container}>
             <Switch
-                trackColor={{false: '#767577', true: '#81b0ff'}}
-                thumbColor={showFirstPage ? '#f5dd4b' : '#f4f3f4'}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={toggleSwitch}
-                value={showFirstPage}
-            />
+                    trackColor={{false: '#767577', true: '#81b0ff'}}
+                    thumbColor={showFirstPage ? '#f5dd4b' : '#f4f3f4'}
+                    ios_backgroundColor="#3e3e3e"
+                    onValueChange={toggleSwitch}
+                    value={showFirstPage}
+                />
             {showFirstPage ? <YourFeedScreen userType={userType} /> : <GalleryScreen userType={userType} />}
         </SafeAreaView>
     );
@@ -31,7 +31,7 @@ export default function ExplorePage ({navigation, route}) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // backgroundColor: '#fff',
+        backgroundColor: Themes.colors.lightblue,
         // alignItems: 'center',
         // justifyContent: 'center',
     },
