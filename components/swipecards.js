@@ -47,8 +47,6 @@ export default class extends React.Component {
         this.handleNope = this.handleNope.bind(this);
         this.handleSubmitComment = this.handleSubmitComment.bind(this);
     }
-
-
     
     async fetchData() {
         const {data, error} = await supabase

@@ -15,6 +15,7 @@ export default function ImageUpload ({navigation, route}) {
     const { userType, email } = route.params;
     console.log(email, userType, 'from upload page')
 
+
     const getAllImages = async () => {
         const {data, error} = await supabase
         .rpc('get_all_images');

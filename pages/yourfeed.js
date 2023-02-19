@@ -23,20 +23,13 @@ var dates = []
 //    { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
 //    { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
 //    { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
-//    { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },
+//    { uri: 'https://archives.bulbagarden.net/media/upload/f/fb/0001Bulbasaur.png' },  
 // ];
 
 const captions = [
-    ["Vincent Van Gogh Painting", "Blue and Yellow Sky", "wave like clouds with a tower", "bruh"],
-    ["The woman sits markedly upright in a pozzeto armchair with her arms folded, a sign of her reserved posture. Her gaze is fixed on the observer",  "this is u", "this is a", "this is l"],
-    ["this is b", "this is u", "this is a", "this is l"],
-    ["this is u",  "this is u", "this is a", "this is l"],
-    ["this is b", "this is u", "this is a", "this is l"],
-    ["this is u",  "this is u", "this is a", "this is l"],
-    ["this is b", "this is u", "this is a", "this is l"],
-    ["this is u",  "this is u", "this is a", "this is l"],
-    ["this is b", "this is u", "this is a", "this is l"],
-    ["this is u",  "this is u", "this is a", "this is l"],
+    ["The coloring of the balloons fits in with the reds and yellows of the horizon", "The balloons provide a marked contrast against the bluer sky", "pretty balloon has many colors"],
+    ["There is mysterious fog on the path leading to the mountains", "peaceful", "mysterious"],
+    ["The flowers look like hearts"],
 ];
 
 // const headings = [
@@ -68,12 +61,6 @@ const captions = [
 
 
 
-
-const get_all_user_data = async () => {
-  const { data, error } = await supabase
-    .rpc('get_all_images_for_user', { username: 'A' });
-  return data;
-}
 
 function YourFeedScreen({ navigation }) {
  const all_images = get_all_user_data();
@@ -119,7 +106,7 @@ function YourFeedScreen({ navigation }) {
   images.push({'uri': userData[i]["url"]});
   captions.push([userData[i]['prompt']])
   headings.push(userData[i]['prompt'])
-  dates.push("yeeee")
+  dates.push("FEB 19 2023")
  }
 
 
@@ -130,7 +117,7 @@ function YourFeedScreen({ navigation }) {
         <TouchableOpacity onPress={() => navigation.navigate('Image', { imageIndex: i })}>
             <View style={styles.card}>
                 <View style = {styles.picture}>
-                    <Image source={images[i]} style={styles.image} />
+                    <Image source={images.length <= 2 ? images[i] : images[(i + 1) % 3]} style={styles.image} />
                 </View>
                 <View style = {styles.image_text}>
                     <View style={{width: '100%'}}>
@@ -148,6 +135,7 @@ function YourFeedScreen({ navigation }) {
    );
    imageRows.push(imageRow);
  }
+
 
  return (
    <SafeAreaView style={styles.container}>
