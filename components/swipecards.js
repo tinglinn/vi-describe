@@ -25,7 +25,7 @@ class Card extends React.Component {
                     <Text style={styles.subheading_text}>{}</Text>
                 </View>
                 <View style={styles.image_box_bottom}>
-                    <Text style={styles.body_text}>art</Text>
+                    <Text style={styles.body_text}>{this.props.prompt}</Text>
                 </View>
             </ImageBackground>
 
@@ -94,24 +94,19 @@ export default class extends React.Component {
         // If you want a stack of cards instead of one-per-one view, activate stack mode
         // stack={true}
         return (
-            <View>
+            <View style={styles.mainBody}>
                 <SwipeCards
-                style={styles.swipeCards}
-                cards={this.state.cards}
-                renderCard={(cardData) => <Card {...cardData} />}
-                renderNoMoreCards={() => <NoMoreCards />}
+                    style={styles.swipeCards}
+                    cards={this.state.cards}
+                    renderCard={(cardData) => <Card {...cardData} />}
+                    renderNoMoreCards={() => <NoMoreCards />}
 
-                handleYup={this.handleYup}
-                handleNope={this.handleNope}
-                handleMaybe={this.handleMaybe}
-                hasMaybeAction
-            />
+                    handleYup={this.handleYup}
+                    handleNope={this.handleNope}
+                    handleMaybe={this.handleMaybe}
+                    hasMaybeAction
+                />
                     <ScrollView contentContainerStyle={styles.detailsContainer}>
-                    {/* <BackButton/> */}
-                    <View style={styles.imageCard}>
-                        <Image style={styles.image} source={require('../assets/images/login_logo.png')} />
-                        <View style={styles.promptBox}><Text style={styles.prompt}>Prompt: here it is here it is here it is here it is</Text></View>
-                    </View>
                     <View style={styles.commentsContainer}>
                         <Text style={styles.prompt}>Enter your description:</Text>
                         <TextInput
@@ -142,42 +137,29 @@ export default class extends React.Component {
                     </View>
                 </ScrollView>
             </View>
-            
         )
     }
 }
 
 const styles = StyleSheet.create({
 
+    mainBody: {
+        backgroundColor: Themes.colors.black,
+        display: "flex",
+        justifyContent: "center",
+        padding: 20,
+        
+    },
+    
     image: {
-        width: '100%',
-        borderRadius: 20,
-        //padding: 0,
-        //padding: 30,
+        width: '92%',
+        borderRadius: 15,
     },
 
     card: {
-        width: Dimensions.get('window').width - 60,
-        //height: Dimensions.get('window').height,
+        width: Dimensions.get('window').width - 0,
         flex: 1,
-
-
-    },
-
-    image_box_top: {
-        position: 'absolute',
-        top: 10,
-        left: 20,
-        color: 'white',
-        flexDirection: 'column'
-    },
-
-    image_box_bottom: {
-        position: 'absolute',
-        bottom: 20,
-        left: 20,
-        color: 'white',
-        flexDirection: 'column',
+        left: 16,
     },
 
     // text
@@ -187,43 +169,17 @@ const styles = StyleSheet.create({
         fontSize: 25,
     },
 
-    subheading_text: {
-        color: 'white',
-        fontFamily: 'Sydney',
-        fontSize: 25,
-        marginBottom: 10,
-    },
-
     title_text: {
         color: 'white',
         fontFamily: 'Sydney-Bold',
         fontSize: 30,
     },
-
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    imageCard: {
-        width: 360,
-        height: 450,
-        padding: 10,
-        borderRadius: 10,
-        backgroundColor: Themes.colors.white,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    image: {
-        width: 340,
-        height: 340,
-        borderRadius: 10,
-        marginBottom: 10,
-    },
+    
     detailsContainer: {
         width: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: "center",
     },
     promptBox: {
         alignItems: 'flex-start',
@@ -236,6 +192,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginTop: 10,
         marginBottom: 5,
+        color: Themes.colors.white,
     },
     input: {
         width: '100%',
@@ -260,14 +217,17 @@ const styles = StyleSheet.create({
     },
     commentsContainer: {
         width: 360,
-        backgroundColor: Themes.colors.white,
+        backgroundColor: Themes.colors.black,
         borderRadius: 5,
         padding: 10,
         marginTop: 10,
+        bottom: 0,
+        // height: 200,
     },
     comment: {
         fontSize: 14,
         marginBottom: 5,
+        
     },
 })
 
