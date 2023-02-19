@@ -101,11 +101,13 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontFamily: "Poppins-SemiBold",
         marginBottom: 5,
+        color: Themes.colors.darkblue
     },
     notificationMessage: {
         fontSize: 14,
         marginBottom: 5,
-        fontFamily: 'Poppins'
+        fontFamily: 'Poppins',
+        color: Themes.colors.darkblue
     },
     notificationTimestamp: {
         fontSize: 12,
