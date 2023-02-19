@@ -4,7 +4,7 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { createBottomTabNavigator, BottomTabBar, BottomTabView } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, MaterialIcons, Ionicons, Fontisto } from '@expo/vector-icons';
 import { useFonts } from 'expo-font';
 import Themes from '../assets/themes/index';
 
@@ -34,10 +34,30 @@ export default function BottomTabs({ navigation, route }) {
                 tabBarLabelStyle: { fontSize: 12, fontFamily: 'Poppins'}
             }}  
         >
-            <Tab.Screen name="Home" component={HomeScreen} />
-            <Tab.Screen name="Gallery" component={GalleryScreen} />
-            <Tab.Screen name="Notifs" component={NotifsScreen} />
-            <Tab.Screen name="Profile" component={ProfileScreen} />
+            <Tab.Screen name="Home" component={HomeScreen} options={{
+                tabBarLabel: 'Home',
+                tabBarIcon: ({ color }) => (
+                    < MaterialCommunityIcons name="pencil-box-multiple-outline" color={ color } size={ Themes.fonts.iconSize } />
+                ),
+            }} />
+            <Tab.Screen name="Gallery" component={GalleryScreen} options={{
+                tabBarLabel: 'Gallery',
+                tabBarIcon: ({ color }) => (
+                    < Ionicons name="md-search-sharp" color={color} size={Themes.fonts.iconSize} />
+                ),
+            }} />
+            <Tab.Screen name="Notifs" component={NotifsScreen} options={{
+                tabBarLabel: 'Notification',
+                tabBarIcon: ({ color }) => (
+                    < MaterialIcons name="notifications-none" color={color} size={Themes.fonts.iconSize} />
+                ),
+            }} />
+            <Tab.Screen name="Profile" component={ProfileScreen} options={{
+                tabBarLabel: 'Profile',
+                tabBarIcon: ({ color }) => (
+                    < Ionicons name="person-circle-outline" color={color} size={Themes.fonts.iconSize} />
+                ),
+            }} />
         </Tab.Navigator>
     );
 }

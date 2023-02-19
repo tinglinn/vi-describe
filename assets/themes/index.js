@@ -11,6 +11,7 @@ const colors = {
 }
 
 const fonts = {
+    iconSize: 32,
 }
 
 const Profiles = {
