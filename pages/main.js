@@ -55,7 +55,7 @@ export default function BottomTabs({ navigation, route }) {
                     < MaterialIcons name="notifications-none" color={color} size={Themes.fonts.iconSize} />
                 ),
             }} />
-            <Tab.Screen name="Profile" component={ProfileScreen} options={{
+            <Tab.Screen name="Profile" component={ProfileScreen} initialParams={{ userType: userType, email: email }} options={{
                 tabBarLabel: 'Profile',
                 tabBarIcon: ({ color }) => (
                     < Ionicons name="person-circle-outline" color={color} size={Themes.fonts.iconSize} />

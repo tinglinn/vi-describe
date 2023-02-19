@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Text, View, TextInput, Button, Image, StyleSheet, TouchableOpacity, Alert, SafeAreaView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { supabase } from '../supabase_client';
+import { Upload } from 'upload-js'
 import Themes from '../assets/themes';
 import SubmitButton from '../components/submitButton';
 import { MaterialIcons } from '@expo/vector-icons'; 
@@ -84,8 +85,6 @@ export default function ImageUpload ({navigation, route}) {
         Alert.alert("Successfully posted!");
         setImage(null);
         setPrompt(null);
-        
-
     }
 
     return (

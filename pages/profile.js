@@ -1,102 +1,125 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import { SafeAreaView, StyleSheet, View, Text, Image, TouchableOpacity, ImageBackground, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { ThemeProvider } from '@react-navigation/native';
+import Themes from '../assets/themes';
+import { MaterialIcons } from '@expo/vector-icons';
 
-const UserInfoPage = () => {
+export default function UserInfoPage({ navigation, route }) {
+    const { userType } = route.params;
+
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Image style={styles.profileImage} source={{ uri: 'https://randomuser.me/api/portraits/men/1.jpg' }} />
-                <View style={styles.userInfo}>
-                    <Text style={styles.username}>John Doe</Text>
-                    <View style={styles.ratingRow}>
-                        <Ionicons name="star" size={18} color="#f7c600" />
-                        <Text style={styles.rating}>4.8</Text>
-                    </View>
+        <SafeAreaView style={styles.container}>
+            <ImageBackground source={require('../assets/images/profile.png')} style={styles.image}>
+                <Text style={styles.name}>Jennifer Zhou</Text>
+                <Text style={styles.location}>Folsom, CA</Text>
+                <View style={{ position: 'absolute', right: 10, bottom: 40, borderWidth: 1, borderColor: Themes.colors.darkblue, width: 35, aspectRatio: 1, borderRadius: 50, backgroundColor: 'rgba(255,255,255, 0.3)', justifyContent: 'center', alignItems: 'center' }}>
+                    <MaterialIcons name="add-photo-alternate" size={22} color="black" />
                 </View>
+            </ImageBackground>
+            <View style={styles.infoBox}>
+                <Text style={styles.prompt}>ABOUT ME *</Text>
+                <View style={styles.input}><Text style={styles.prompt}>Adventurous art-lover, dog mom</Text></View>
+                
+                <Text style={styles.prompt}>I AM: * </Text>
+                <View style={{ flexDirection: 'row', width: Dimensions.get('window').width * 0.80, justifyContent: 'space-between'}}>
+                    <TouchableOpacity><View style={userType == 'A' ? styles.selectedbutton : styles.otherbutton}><Text style={userType == 'A' ? styles.whiteprompt : styles.prompt}>VISUALLY IMPAIRED</Text></View></TouchableOpacity>
+                    <TouchableOpacity><View style={userType == 'B' ? styles.selectedbutton : styles.otherbutton}><Text style={userType == 'B' ? styles.whiteprompt : styles.prompt}>VOLUNTEER</Text></View></TouchableOpacity>
+                </View>
+                <Text style={styles.prompt}>EMAIL *</Text>
+                <View style={styles.input}><Text style={styles.prompt}>jzhou@gmail.com</Text></View>
+                <Text style={styles.prompt}>DATE OF BIRTH *</Text>
+                <View style={styles.input}><Text style={styles.prompt}>08/27/1990</Text></View>
             </View>
-            <View style={styles.details}>
-                <View style={styles.detailRow}>
-                    <Ionicons name="mail" size={20} color="#007aff" />
-                    <Text style={styles.detailText}>johndoe@gmail.com</Text>
-                </View>
-                <View style={styles.detailRow}>
-                    <Ionicons name="call" size={20} color="#007aff" />
-                    <Text style={styles.detailText}>(123) 456-7890</Text>
-                </View>
-                <View style={styles.detailRow}>
-                    <Ionicons name="location" size={20} color="#007aff" />
-                    <Text style={styles.detailText}>123 Main St, Anytown USA</Text>
-                </View>
-                <View style={styles.detailRow}>
-                    <Ionicons name="card" size={20} color="#007aff" />
-                    <Text style={styles.detailText}>Visa ending in 1234</Text>
-                </View>
-            </View>
-            <TouchableOpacity style={styles.editButton}>
-                <Text style={styles.editButtonText}>Edit Profile</Text>
-            </TouchableOpacity>
-        </View>
+        </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        padding: 20,
+        backgroundColor: Themes.colors.lightblue
     },
-    header: {
-        flexDirection: 'row',
+    image: {
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').width * 0.7,
+        zIndex: 0,
+        justifyContent: 'flex-end',
         alignItems: 'center',
-        marginBottom: 20,
+        paddingBottom: 35,
     },
-    profileImage: {
-        width: 80,
-        height: 80,
-        borderRadius: 40,
-        marginRight: 20,
-    },
-    userInfo: {
-        flex: 1,
-    },
-    username: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 5,
-    },
-    ratingRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    rating: {
-        fontSize: 18,
-        color: '#666',
-        marginLeft: 5,
-    },
-    details: {
-        marginBottom: 20,
-    },
-    detailRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 10,
-    },
-    detailText: {
-        fontSize: 18,
-        marginLeft: 10,
-    },
-    editButton: {
-        backgroundColor: '#007aff',
+    infoBox: {
+        position: 'absolute',
+        zIndex: 2,
+        bottom: 0,
         borderRadius: 20,
-        paddingVertical: 10,
-        paddingHorizontal: 20,
+        //flex: 1,
+        width: Dimensions.get('window').width,
+        height: '65%',
+        backgroundColor: Themes.colors.background,
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        paddingLeft: 20
     },
-    editButtonText: {
-        color: '#fff',
+    prompt: {
+        textAlign: 'left',
+        fontFamily: 'Poppins',
+        fontSize: 13,
+        marginTop: 10,
+        marginBottom: 5,
+        color: Themes.colors.darkblue,
+    },
+    whiteprompt: {
+        textAlign: 'left',
+        fontFamily: 'Poppins',
+        fontSize: 13,
+        marginTop: 10,
+        marginBottom: 5,
+        color: Themes.colors.white,
+    },
+    input: {
+        width: Dimensions.get('window').width * 0.80,
+        minHeight: 40,
+        backgroundColor: 'white',
+        borderWidth: 1,
+        borderColor: '#6F87A4',
+        borderRadius: 15,
+        marginTop: 5,
+        marginBottom: 10,
+        fontSize: 14,
+        fontFamily: 'Poppins',
+        padding: 10
+    },
+    selectedbutton: {
+        borderRadius: 20,
+        width: 150,
+        height: 50,
+        backgroundColor: Themes.colors.darkblue,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    otherbutton: {
+        borderRadius: 20,
+        borderWidth: 0.5,
+        borderColor: Themes.colors.darkblue,
+        width: 150,
+        height: 50,
+        backgroundColor: Themes.colors.white,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    name: {
+        fontFamily: 'Poppins-SemiBold',
         fontSize: 18,
-        fontWeight: 'bold',
+        //marginTop: 10,
+        //marginBottom: 5,
+        color: Themes.colors.white,
     },
+    location: {
+        fontFamily: 'Poppins',
+        fontSize: 16,
+        //marginTop: 10,
+        //marginBottom: 5,
+        color: Themes.colors.white,
+    }
 });
-
-export default UserInfoPage;
