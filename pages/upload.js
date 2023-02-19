@@ -7,9 +7,11 @@ import Themes from '../assets/themes';
 import SubmitButton from '../components/submitButton';
 import { MaterialIcons } from '@expo/vector-icons'; 
 
-export default function ImageUpload () {
+export default function ImageUpload ({navigation, route}) {
     const [image, setImage] = useState(null);
     const [prompt, setPrompt] = useState('');
+    const { userType } = route.params;
+    //console.log(userType, 'from upload page')
 
     const upload = Upload({
         apiKey: "public_kW15b5DCGeXqW1ZyeN5JnPMx886t" // Your real API key.

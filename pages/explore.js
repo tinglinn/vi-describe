@@ -8,10 +8,12 @@ import { Foundation } from '@expo/vector-icons';
 import GalleryScreen from './gallery';
 import YourFeedScreen from './yourfeed';
 
-export default function ExplorePage () {
+export default function ExplorePage ({navigation, route}) {
     const [showFirstPage, setShowFirstPage] = useState(true);
     const toggleSwitch = () => setShowFirstPage(previousState => !previousState);
-    
+    const { userType } = route.params;
+    // console.log(route)
+    // console.log(userType, "explore page screen");
     return (
         <SafeAreaView style={styles.container}>
             <Switch
@@ -21,7 +23,7 @@ export default function ExplorePage () {
                 onValueChange={toggleSwitch}
                 value={showFirstPage}
             />
-            {showFirstPage ? <YourFeedScreen/> : <GalleryScreen/>}
+            {showFirstPage ? <YourFeedScreen userType={userType} /> : <GalleryScreen userType={userType} />}
         </SafeAreaView>
     );
 };

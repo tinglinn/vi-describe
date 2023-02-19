@@ -143,7 +143,8 @@ function ImageScreen({ route }) {
 const Stack = createStackNavigator();
 
 
-export default function ExportScreen () {
+export default function ExportScreen() {
+  //const { userType } = route.params;
    return (
      <NavigationContainer independent={true}>
        <Stack.Navigator initialRouteName="Gallery">

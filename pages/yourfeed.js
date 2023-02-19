@@ -126,17 +126,16 @@ function ImageScreen({ route }) {
 const Stack = createStackNavigator();
 
 
-export default class App extends Component {
- render() {
-   return (
-     <NavigationContainer independent={true}>
-       <Stack.Navigator initialRouteName="YourFeedScreen">
-         <Stack.Screen name="YourFeedScreen " component={YourFeedScreen} options={{headerShown: false}}/>
-         <Stack.Screen name="Image" component={ImageScreen} />
-       </Stack.Navigator>
-     </NavigationContainer>
-   );
- }
+export default function FeedScreen ({userType}) {
+    return (
+      <NavigationContainer independent={true}>
+        <Stack.Navigator initialRouteName="YourFeedScreen">
+          <Stack.Screen name="YourFeedScreen " component={YourFeedScreen} options={{headerShown: false}}/>
+          <Stack.Screen name="Image" component={ImageScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+ 
 }
 
 
