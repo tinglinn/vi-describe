@@ -34,14 +34,14 @@ const styles = StyleSheet.create({
     },
     button_bold: {
         fontFamily: 'Poppins-SemiBold',
-        fontSize: 15,
+        fontSize: 16,
         // marginLeft: 10,
         // marginRight: 10,
         marginBottom: 5
     },
     button_nold: {
         fontFamily: 'Poppins',
-        fontSize: 15,
+        fontSize: 16,
         // marginLeft: 10,
         // marginRight: 10,
         marginBottom: 5

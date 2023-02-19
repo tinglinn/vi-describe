@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, TextInput, Button, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { Text, View, TextInput, Button, Image, StyleSheet, TouchableOpacity, Alert, SafeAreaView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { supabase } from '../supabase_client';
 import { Upload } from 'upload-js'
@@ -90,8 +90,8 @@ export default function ImageUpload ({navigation, route}) {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.header}>Submit Artwork</Text>
+        <SafeAreaView style={styles.container}>
+            <Text style={styles.header}>Upload Artwork</Text>
             <View style={styles.uploadCard}>
                 <Text style={styles.titleText}>Choose an artwork that you would like others to describe.</Text>
                 <View style={{ width: '100%', alignItems: 'center' }}>
@@ -117,7 +117,7 @@ export default function ImageUpload ({navigation, route}) {
                     />
             </View>
             <SubmitButton childFunction={onSubmit}/>
-        </View>
+        </SafeAreaView>
     );
 };
 
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
+        //justifyContent: 'center',
         backgroundColor: Themes.colors.lightblue
         //backgroundColor: '#9bc2ff'
     },
@@ -144,10 +144,11 @@ const styles = StyleSheet.create({
     },
     header: {
         fontFamily: "Poppins-SemiBold",
-        color: Themes.colors.darkblue,
-        fontSize: 22,
+        //color: Themes.colors.darkblue,
+        fontSize: 16,
         textAlign: 'center',
-        marginTop: 35
+        marginBottom: 10,
+        // marginTop: 10
     },
     uploadCard: {
         width: '90%',
