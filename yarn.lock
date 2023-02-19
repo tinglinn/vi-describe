@@ -1773,7 +1773,7 @@
   "resolved" "https://registry.npmjs.org/@react-navigation/elements/-/elements-1.3.15.tgz"
   "version" "1.3.15"
 
-"@react-navigation/native@^6.0.0":
+"@react-navigation/native@^6.0.0", "@react-navigation/native@^6.1.4":
   "integrity" "sha512-8IGpMFvD21XINpSf9gyU19yv4O+NyF9FQAxEzwbJSef19W5XEJKXPN/0RINc43Tt+YnQyFGQ2+qJM1uoB9pKcA=="
   "resolved" "https://registry.npmjs.org/@react-navigation/native/-/native-6.1.4.tgz"
   "version" "6.1.4"
@@ -1941,6 +1941,11 @@
   "version" "17.0.22"
   dependencies:
     "@types/yargs-parser" "*"
+
+"@upload-io/upload-api-client-upload-js@^2.15.0":
+  "integrity" "sha512-UGqT4wxCDhTTKnTLvqtKCyPJSswA2z6/Z6/sMakWGdJBBuwCHcOyXgoWafbPILrgWp3oMMQjnTfwwMBmR0O54w=="
+  "resolved" "https://registry.npmjs.org/@upload-io/upload-api-client-upload-js/-/upload-api-client-upload-js-2.15.0.tgz"
+  "version" "2.15.0"
 
 "@urql/core@>=2.3.1", "@urql/core@2.3.6":
   "integrity" "sha512-PUxhtBh7/8167HJK6WqBv6Z0piuiaZHQGYbhwpNL9aIQmLROPEdaUYkY4wh45wPQXcTpnd11l0q3Pw+TI11pdw=="
@@ -3222,10 +3227,10 @@
   "resolved" "https://registry.npmjs.org/expo-image-loader/-/expo-image-loader-4.0.0.tgz"
   "version" "4.0.0"
 
-"expo-image-picker@^14.1.0":
-  "integrity" "sha512-YVkzkStaapaWiBBwqMpTCiyohgHkj7s3OoICZ9XWxp4Zgs7STYkHqlJd6RDx0/qW8UkhakNuPedw7wurPoRsOQ=="
-  "resolved" "https://registry.npmjs.org/expo-image-picker/-/expo-image-picker-14.1.0.tgz"
-  "version" "14.1.0"
+"expo-image-picker@~14.0.2":
+  "integrity" "sha512-VN5wMWzhYhIRhFq8I1pjMbn/ivjlhWfxzJpz5jUOf3mQ8vxrI5GcR8cJO9kyYwuCrI9W3GUzh/aDt7QRSTQDDA=="
+  "resolved" "https://registry.npmjs.org/expo-image-picker/-/expo-image-picker-14.0.3.tgz"
+  "version" "14.0.3"
   dependencies:
     "expo-image-loader" "~4.0.0"
 
@@ -5454,6 +5459,11 @@
   "resolved" "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.1.tgz"
   "version" "2.0.1"
 
+"progress-smoother@^1.4.0":
+  "integrity" "sha512-ctIG/KF/3DQ1zQHMWbXjcnicggTsEzZEA2JEnJNrPtK88tmqN9cfQf01yfLWGCBF93R5XN1EUe/z/IV5NKrmCw=="
+  "resolved" "https://registry.npmjs.org/progress-smoother/-/progress-smoother-1.4.0.tgz"
+  "version" "1.4.0"
+
 "progress@2.0.3":
   "integrity" "sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA=="
   "resolved" "https://registry.npmjs.org/progress/-/progress-2.0.3.tgz"
@@ -6793,6 +6803,14 @@
   dependencies:
     "escalade" "^3.1.1"
     "picocolors" "^1.0.0"
+
+"upload-js@^2.11.2":
+  "integrity" "sha512-q6IkwFLA3kL1MbBMvzCbJC0EHjMgjJ399f5QH3Up5rkoVjYXZxTKRgyJQeRT1HpqPQ3gCJdvZuL/Cv1LjBRGMg=="
+  "resolved" "https://registry.npmjs.org/upload-js/-/upload-js-2.11.2.tgz"
+  "version" "2.11.2"
+  dependencies:
+    "@upload-io/upload-api-client-upload-js" "^2.15.0"
+    "progress-smoother" "^1.4.0"
 
 "urix@^0.1.0":
   "integrity" "sha512-Am1ousAhSLBeB9cG/7k7r2R0zj50uDRlZHPGbazid5s9rlF1F/QKYObEKSIunSjIOkJZqwRRLpvewjEkM7pSqg=="
