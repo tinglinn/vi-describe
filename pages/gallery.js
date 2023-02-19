@@ -74,7 +74,7 @@ function ImageScreen({ route }) {
     const commentViews = [];
     for (let i = 0; i < captions[imageIndex].length; i ++) {
         const commentView = (
-            <View>
+            <View key={i}>
                 <Text style={styles.enhancedText}> {captions[imageIndex][i]}</Text>
             </View>
         );
