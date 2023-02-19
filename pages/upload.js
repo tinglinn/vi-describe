@@ -89,9 +89,9 @@ export default function ImageUpload ({navigation, route}) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.header}>Upload Artwork</Text>
+            <Text style={styles.header}>Upload Image</Text>
             <View style={styles.uploadCard}>
-                <Text style={styles.titleText}>Choose an artwork that you would like others to describe.</Text>
+                <Text style={styles.titleText}>Choose an image that you would like others to describe.</Text>
                 <View style={{ width: '100%', alignItems: 'center' }}>
                     <TouchableOpacity onPress={pickImage} style={styles.uploadBox}>
                         {!image &&
@@ -104,7 +104,7 @@ export default function ImageUpload ({navigation, route}) {
                 </View>
             </View>
             <View style={styles.promptBox}>
-                <Text style={styles.titleText}>Optionally enter a prompt - what does this artwork mean to you? What would you like people to focus on?</Text>
+                <Text style={styles.titleText}>Optionally enter a prompt - what does this image mean to you? What would you like people to focus on?</Text>
                 <TextInput
                     style={styles.promptInput}
                     onChangeText={text => setPrompt(text)}
@@ -138,6 +138,7 @@ const styles = StyleSheet.create({
         fontFamily: "Poppins-SemiBold",
         color: Themes.colors.darkblue,
         fontSize: 16,
+        marginBottom: 10,
         //textAlign: 'center'
     },
     header: {
@@ -153,7 +154,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: Themes.colors.white,
         padding: 20,
-        marginTop: 30,
+        marginTop: 40,
         //justifyContent: 'space-between',
     },
     uploadText: {
@@ -164,12 +165,12 @@ const styles = StyleSheet.create({
     uploadBox: {
         width: '100%',
         height: 150,
-        borderRadius: 10,
+        borderRadius: 15,
         backgroundColor: '#CAD6E1',
         // borderWidth: 1,
         // borderColor: Themes.colors.verydark,
         // borderStyle: "dashed",
-        marginTop: 20,
+        marginTop: 30,
         justifyContent: 'flex-end',
         alignItems: 'flex-end'
     },

@@ -192,13 +192,13 @@ function ImageScreen({ navigation, route }) {
             style={styles.input}
             value={name}
             onChangeText={text => setName(text)}
-            placeholder="Name this piece of art"
+            placeholder="Name this image"
           />
           <TextInput
             style={styles.input}
             value={comment}
             onChangeText={text => setComment(text)}
-            placeholder="Describe this piece of art"
+            placeholder="Describe this image"
           />
          <SubmitButton childFunction={() => setDescribe(false)} />
         </View>}
