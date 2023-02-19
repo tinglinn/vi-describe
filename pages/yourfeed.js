@@ -103,8 +103,8 @@ function YourFeedScreen({ navigation }) {
  dates = []
  for (let i = 0; i < userData.length; i++) {
 
-  images.push(userData[i]["url"]);
-  captions.push(userData[i]['prompt'])
+  images.push({'uri': userData[i]["url"]});
+  captions.push([userData[i]['prompt']])
   headings.push(userData[i]['prompt'])
   dates.push("yeeee")
  }
