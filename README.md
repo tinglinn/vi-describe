@@ -8,4 +8,4 @@ Vi-Describe is built using React Native, with API calls to Supabase as our datab
 
 ## Set up
 To interact with prototype, git clone the repo, download Xcode and open up an iOS or Android mobile simulator. Navigate to the directory and run
-``` npx expo run
+``` npx expo run ```
